@@ -201,13 +201,14 @@ const AddBlog = () => {
                               ctx.drawImage(img, 0, 0, width, height);
                               canvas.toBlob(
                                 (blob) => {
-                                  const compFile = new File([blob], imgFile.name, {
-                                    type: "image/jpeg",
+                                  const baseName = imgFile.name.substring(0, imgFile.name.lastIndexOf('.')) || imgFile.name;
+                                  const compFile = new File([blob], `${baseName}.webp`, {
+                                    type: "image/webp",
                                     lastModified: Date.now(),
                                   });
                                   resolve(compFile);
                                 },
-                                "image/jpeg",
+                                "image/webp",
                                 0.8
                               );
                             };
@@ -218,7 +219,7 @@ const AddBlog = () => {
                       const compressedFile = await compressImageLocal(file);
 
                       // 2. Subir a Supabase Storage (bajo carpeta blogs/ en el bucket propiedades)
-                      const fileExt = file.name.split(".").pop();
+                      const fileExt = compressedFile.name.split(".").pop();
                       const fileName = `blogs/${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
 
                       const { error: uploadError } = await supabase.storage

@@ -31,13 +31,15 @@ const compressImage = (file, maxWidth = 1600, maxHeight = 1200, quality = 0.8) =
 
         canvas.toBlob(
           (blob) => {
-            const compressedFile = new File([blob], file.name, {
-              type: "image/jpeg",
+            // Reemplazar la extensión original por .webp
+            const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            const compressedFile = new File([blob], `${baseName}.webp`, {
+              type: "image/webp",
               lastModified: Date.now(),
             });
             resolve(compressedFile);
           },
-          "image/jpeg",
+          "image/webp",
           quality
         );
       };
@@ -70,7 +72,7 @@ const UploadPhotoGallery = ({ initialImages = [] }) => {
         const compressedFile = await compressImage(file);
 
         // 2. Intentar subir a Supabase Storage
-        const fileExt = file.name.split(".").pop();
+        const fileExt = compressedFile.name.split(".").pop();
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
         const filePath = `${fileName}`;
 
