@@ -75,7 +75,7 @@ const UploadPhotoGallery = ({ initialImages = [] }) => {
         const filePath = `${fileName}`;
 
         const { error: uploadError } = await supabase.storage
-          .from("propiedades")
+          .from("AC PROPIEDADES")
           .upload(filePath, compressedFile, {
             cacheControl: "3600",
             upsert: false,
@@ -85,7 +85,7 @@ const UploadPhotoGallery = ({ initialImages = [] }) => {
 
         // Obtener URL pública
         const { data: { publicUrl } } = supabase.storage
-          .from("propiedades")
+          .from("AC PROPIEDADES")
           .getPublicUrl(filePath);
 
         newImages.push(publicUrl);
