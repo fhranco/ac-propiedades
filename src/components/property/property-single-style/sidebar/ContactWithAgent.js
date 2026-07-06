@@ -36,7 +36,15 @@ const ContactWithAgent = ({ propiedadId, propiedadTitulo, agentId }) => {
     : "Soporte AC Propiedades";
 
   const agentPosition = agent?.position || "Asesor Inmobiliario";
-  const agentImage = agent?.image || "/images/team/agent-3.png";
+  let agentImage = agent?.image || "/images/Logo.png";
+  if (
+    !agent?.image ||
+    agentImage.includes("210") ||
+    agentImage.includes("placeholder") ||
+    agentImage.includes("user.png")
+  ) {
+    agentImage = "/images/Logo.png";
+  }
 
   const handleWhatsAppClick = async (e) => {
     e.preventDefault();
