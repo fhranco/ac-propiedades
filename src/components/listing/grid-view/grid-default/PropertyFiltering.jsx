@@ -110,11 +110,7 @@ export default function PropertyFiltering() {
     setLoading(true);
     supabase
       .from("properties")
-      .select(`
-        id, title, address, city, description, sector_barrio, comuna, provincia, region, category,
-        price, type, bedrooms, bathrooms, area, year_building, amenities, sufijo_precio, slug, created_at, status, agent_id,
-        images:images->0
-      `)
+      .select("*")
       .order("created_at", { ascending: false })
       .then(({ data, error }) => {
         if (error) {

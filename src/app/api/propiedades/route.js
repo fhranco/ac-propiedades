@@ -32,11 +32,7 @@ const slugify = (text) =>
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    let query = supabase.from('properties').select(`
-      id, title, address, city, description, sector_barrio, comuna, provincia, region, category,
-      price, type, bedrooms, bathrooms, area, year_building, amenities, sufijo_precio, slug, created_at, status, agent_id,
-      images:images->0
-    `);
+    let query = supabase.from('properties').select('*');
 
     if (searchParams.get('city'))      query = query.ilike('city', `%${searchParams.get('city')}%`);
     if (searchParams.get('category'))  query = query.eq('category', searchParams.get('category'));
@@ -46,17 +42,7 @@ export async function GET(request) {
     const { data, error } = await query;
     if (error) throw error;
 
-    const optimizedData = (data || []).map(item => {
-      if (item.images) {
-        // Postgrest returns images->0 as a string or JSON. Convert to array.
-        item.images = Array.isArray(item.images) ? item.images : [item.images];
-      } else {
-        item.images = [];
-      }
-      return item;
-    });
-
-    return Response.json(optimizedData, { status: 200 });
+    return Response.json(data, { status: 200 });
   } catch (error) {
     console.error('GET /api/propiedades:', error);
     require('fs').appendFileSync('api-error.log', 'GET error: ' + (error.message || JSON.stringify(error)) + '\\n');
