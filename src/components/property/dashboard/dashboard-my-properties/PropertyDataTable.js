@@ -843,11 +843,9 @@ const PropertyDataTable = () => {
                         style={{ objectFit: "cover", borderRadius: "8px" }} />
                     </div>
                     <div className="list-content py-0 p-0 mt-2 mt-xxl-0 ps-xxl-4">
-                      <div className="h6 list-title">
-                        {property.slug
-                          ? <Link href={'/single-v1/' + property.slug}>{property.title}</Link>
+                        {property.id
+                          ? <Link href={'/propiedades/' + property.id}>{property.title}</Link>
                           : <span>{property.title}</span>}
-                      </div>
                       <p className="list-text mb-0">{property.address || property.location || "—"}</p>
                     </div>
                   </div>

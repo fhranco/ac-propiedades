@@ -50,20 +50,23 @@ const FavoritosCounter = () => {
     );
   }
 
-  // Agrupar favoritos por propiedadId
+  // Agrupar favoritos por property_id
   const countByProp = favoritos.reduce((acc, fav) => {
-    acc[fav.propiedadId] = (acc[fav.propiedadId] || 0) + 1;
+    const propId = fav.property_id || fav.propiedadId;
+    if (propId) {
+      acc[propId] = (acc[propId] || 0) + 1;
+    }
     return acc;
   }, {});
 
   // Ordenar por cantidad descendente
   const ranking = Object.entries(countByProp)
-    .map(([propiedadId, count]) => {
-      const prop = propiedades.find((p) => String(p.id) === String(propiedadId));
+    .map(([propertyId, count]) => {
+      const prop = propiedades.find((p) => String(p.id) === String(propertyId));
       return {
-        propiedadId,
+        propiedadId: propertyId,
         count,
-        title: prop?.title || `Propiedad #${propiedadId}`,
+        title: prop?.title || `Propiedad #${propertyId}`,
         category: prop?.category || "—",
         status: prop?.status || "—",
       };
@@ -74,7 +77,7 @@ const FavoritosCounter = () => {
   const lastFav =
     favoritos.length > 0
       ? [...favoritos].sort(
-          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+          (a, b) => new Date(b.added_at || b.timestamp) - new Date(a.added_at || a.timestamp)
         )[0]
       : null;
 
@@ -146,7 +149,7 @@ const FavoritosCounter = () => {
               }}
             >
               {lastFav
-                ? new Date(lastFav.timestamp).toLocaleString("es-CL", {
+                ? new Date(lastFav.added_at || lastFav.timestamp).toLocaleString("es-CL", {
                     day: "2-digit",
                     month: "2-digit",
                     year: "numeric",

@@ -10,6 +10,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
   const supabase = createClient();
 
@@ -79,14 +80,35 @@ const SignIn = () => {
 
       <div className="mb15">
         <label className="form-label fw600 dark-color">Contraseña</label>
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Ingresa tu contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="position-relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            className="form-control"
+            placeholder="Ingresa tu contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ paddingRight: "40px" }}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "#666",
+              padding: "0",
+              zIndex: 10
+            }}
+          >
+            <i className={showPassword ? "far fa-eye-slash" : "far fa-eye"} />
+          </button>
+        </div>
       </div>
 
       <div className="d-grid mb20 mt30">
