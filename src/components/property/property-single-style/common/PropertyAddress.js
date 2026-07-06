@@ -34,8 +34,11 @@ const PropertyAddress = ({ data }) => {
   const region = data.region || "Magallanes y la Antártica Chilena";
   const country = "Chile";
 
-  const openStreetMapUrl = data.lat && data.lng
-    ? `https://www.openstreetmap.org/?mlat=${data.lat}&mlon=${data.lng}#map=16/${data.lat}/${data.lng}`
+  const lat = data.lat || data.latitude;
+  const lng = data.lng || data.longitude;
+
+  const openStreetMapUrl = lat && lng
+    ? `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=16/${lat}/${lng}`
     : `https://www.openstreetmap.org/search?query=${encodeURIComponent(`${address}, ${city}, ${region}`)}`;
 
   const addressDetails = [
@@ -90,8 +93,8 @@ const PropertyAddress = ({ data }) => {
 
       {/* Mapa interactivo Leaflet con ícono AC Propiedades */}
       <PropertyMapView
-        latitude={data.lat}
-        longitude={data.lng}
+        latitude={lat}
+        longitude={lng}
         address={address}
       />
 
