@@ -4,6 +4,7 @@ import DboardMobileNavigation from "@/components/property/dashboard/DboardMobile
 import Footer from "@/components/property/dashboard/Footer";
 import SidebarDashboard from "@/components/property/dashboard/SidebarDashboard";
 import AddPropertyTabContent from "@/components/property/dashboard/dashboard-add-property";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Agregar propiedad | Panel AC Propiedades Magallanes",
@@ -50,7 +51,9 @@ const DashboardAddProperty = () => {
                 <div className="col-xl-12">
                   <div className="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
                     <div className="navtab-style1">
-                      <AddPropertyTabContent />
+                      <Suspense fallback={<div>Cargando...</div>}>
+                        <AddPropertyTabContent />
+                      </Suspense>
                     </div>
                   </div>
                 </div>

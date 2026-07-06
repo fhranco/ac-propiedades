@@ -4,6 +4,7 @@ import DboardMobileNavigation from "@/components/property/dashboard/DboardMobile
 import Footer from "@/components/property/dashboard/Footer";
 import SidebarDashboard from "@/components/property/dashboard/SidebarDashboard";
 import AddBlog from "@/components/property/dashboard/dashboard-add-blog";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Redactar Noticia || AC Propiedades Magallanes",
@@ -48,7 +49,9 @@ export default function DashboardAddBlog() {
 
               <div className="row">
                 <div className="col-xl-12">
-                  <AddBlog />
+                  <Suspense fallback={<div>Cargando...</div>}>
+                    <AddBlog />
+                  </Suspense>
                 </div>
               </div>
               {/* End .row */}
