@@ -1,3 +1,7 @@
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import { supabase } from "@/lib/supabase";
 
 const compressImage = (file, maxWidth = 1600, maxHeight = 1200, quality = 0.8) => {
