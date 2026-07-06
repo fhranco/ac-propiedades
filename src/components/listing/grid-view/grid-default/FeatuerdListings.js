@@ -43,6 +43,7 @@ const FeaturedListings = ({ data, colstyle }) => {
                 className="w-100"
                 src={listing.image}
                 alt={listing.title}
+                unoptimized
               />
 
               {/* Badge categoría */}
