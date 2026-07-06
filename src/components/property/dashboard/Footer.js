@@ -1,43 +1,23 @@
 import React from "react";
 
-const footerLinks = [
-  { text: "Privacy", href: "#" },
-  { text: "Terms", href: "#" },
-  { text: "Sitemap", href: "#" },
-];
-
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="dashboard_footer pt30 pb10">
       <div className="container">
         <div className="row items-center justify-content-center justify-content-md-between">
-          <div className="col-auto">
+          <div className="col-12 text-center">
             <div className="copyright-widget">
-              <p className="text">
-                © Homez {currentYear}{" "}
+              <p className="text mb-0" style={{ fontSize: "13px", color: "#666" }}>
+                © 2026 <strong>AC Propiedades</strong> - Todos los derechos reservados. Desarrollo web a medida por{" "}
                 <a
-                  href="https://themeforest.net/user/ib-themes"
+                  href="https://patagoniacoach.cl"
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: "#eb6753", fontWeight: "600" }}
                 >
-                  ib-themes
+                  Agencia PatagoniaCoach
                 </a>{" "}
-                - All rights reserved
-              </p>
-            </div>
-          </div>
-
-          <div className="col-auto">
-            <div className="footer_bottom_right_widgets text-center text-lg-end">
-              <p>
-                {footerLinks.map((link, index) => (
-                  <React.Fragment key={index}>
-                    <a href={link.href}>{link.text}</a>
-                    {index !== footerLinks.length - 1 && " · "}
-                  </React.Fragment>
-                ))}
+                | Privacidad · Términos · Mapa del sitio
               </p>
             </div>
           </div>
