@@ -48,25 +48,17 @@ const DashboardAgents = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      import("@/utils/supabase/client").then(({ createClient }) => {   if (user) { setCurrentUser(user); if (user.email === "contacto@acpropiedades.cl" || user.email === "acpropiedades@protonmail.com") { setIsAdmin(true); } } }); });
-      const supabase = createClient();
-      supabase.auth.getUser().then(({ data: { user } }) => {
-
-
-
-
-
-
-
-      const session = null;
-      if (session) {
-        const user = JSON.parse(session);
-        setCurrentUser(user);
-        // Validar si es el administrador principal (por ejemplo, ID 1 o correo contacto@acpropiedades.cl)
-        if (user.id === 1 || user.email === "contacto@acpropiedades.cl" || user.username === "ac.magallanes") {
-          setIsAdmin(true);
-        }
-      }
+      import("@/utils/supabase/client").then(({ createClient }) => {
+        const supabase = createClient();
+        supabase.auth.getUser().then(({ data: { user } }) => {
+          if (user) {
+            setCurrentUser(user);
+            if (user.email === "contacto@acpropiedades.cl" || user.email === "acpropiedades@protonmail.com") {
+              setIsAdmin(true);
+            }
+          }
+        });
+      });
     }
     loadAgents().finally(() => setLoading(false));
   }, [loadAgents]);
