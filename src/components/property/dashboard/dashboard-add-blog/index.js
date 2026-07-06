@@ -222,7 +222,7 @@ const AddBlog = () => {
                       const fileName = `blogs/${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
 
                       const { error: uploadError } = await supabase.storage
-                        .from("AC PROPIEDADES")
+                        .from("propiedades")
                         .upload(fileName, compressedFile, {
                           cacheControl: "3600",
                           upsert: false,
@@ -232,7 +232,7 @@ const AddBlog = () => {
 
                       // 3. Obtener URL pública
                       const { data: { publicUrl } } = supabase.storage
-                        .from("AC PROPIEDADES")
+                        .from("propiedades")
                         .getPublicUrl(fileName);
 
                       setFormData(prev => ({ ...prev, image: publicUrl }));
