@@ -1,11 +1,54 @@
-"use client";
-import { Tooltip as ReactTooltip } from "react-tooltip";
-import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import { supabase } from "@/lib/supabase";
+
+const compressImage = (file, maxWidth = 1600, maxHeight = 1200, quality = 0.8) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          },
+          "image/jpeg",
+          quality
+        );
+      };
+    };
+  });
+};
 
 const UploadPhotoGallery = ({ initialImages = [] }) => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const [coverIndex, setCoverIndex] = useState(0);
+  const [uploadingStatus, setUploadingStatus] = useState("");
   const fileInputRef = useRef(null);
 
   // Sincronizar imágenes existentes de la propiedad en modo edición
@@ -15,17 +58,52 @@ const UploadPhotoGallery = ({ initialImages = [] }) => {
     }
   }, [initialImages]);
 
-  const handleUpload = (files) => {
+  const handleUpload = async (files) => {
     const newImages = [...uploadedImages];
+    let count = 0;
 
     for (const file of files) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        newImages.push(e.target.result);
+      count++;
+      setUploadingStatus(`Optimizando y subiendo foto ${count} de ${files.length}...`);
+      try {
+        // 1. Comprimir imagen en el navegador
+        const compressedFile = await compressImage(file);
+
+        // 2. Intentar subir a Supabase Storage
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("propiedades")
+          .upload(filePath, compressedFile, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (uploadError) throw uploadError;
+
+        // Obtener URL pública
+        const { data: { publicUrl } } = supabase.storage
+          .from("propiedades")
+          .getPublicUrl(filePath);
+
+        newImages.push(publicUrl);
         setUploadedImages([...newImages]);
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.warn("Storage upload failed, falling back to compressed base64:", err);
+        // Si falla la subida a Storage (ej. políticas RLS), caemos en Base64 pero comprimido
+        const compressedFile = await compressImage(file);
+        const base64 = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(compressedFile);
+        });
+        newImages.push(base64);
+        setUploadedImages([...newImages]);
+      }
     }
+    setUploadingStatus("");
   };
 
   const handleDrop = (event) => {
@@ -80,6 +158,13 @@ const UploadPhotoGallery = ({ initialImages = [] }) => {
           />
         </label>
       </div>
+
+      {uploadingStatus && (
+        <div className="alert alert-info text-center mb20" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", borderRadius: "12px", border: "1px solid #bbeeeb", color: "#1d293f" }}>
+          <div className="spinner-border spinner-border-sm text-info" role="status" style={{ width: "1rem", height: "1rem" }} />
+          <span className="fw-semibold fz14">{uploadingStatus}</span>
+        </div>
+      )}
 
       {/* Input oculto con string JSON de imágenes para el submit del formulario */}
       <input type="hidden" name="imagesJson" value={JSON.stringify(uploadedImages)} />

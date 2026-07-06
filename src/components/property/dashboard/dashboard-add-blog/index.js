@@ -165,15 +165,88 @@ const AddBlog = () => {
                 type="file"
                 className="form-control"
                 accept="image/*"
-                onChange={(e) => {
+                onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setFormData(prev => ({ ...prev, image: reader.result }));
-                      setMessage({ type: "success", text: "Imagen cargada correctamente." });
-                    };
-                    reader.readAsDataURL(file);
+                    setMessage({ type: "info", text: "Optimizando y subiendo imagen..." });
+                    try {
+                      // 1. Comprimir imagen en el navegador
+                      const compressImageLocal = (imgFile) => {
+                        return new Promise((resolve) => {
+                          const reader = new FileReader();
+                          reader.readAsDataURL(imgFile);
+                          reader.onload = (event) => {
+                            const img = new window.Image();
+                            img.src = event.target.result;
+                            img.onload = () => {
+                              const canvas = document.createElement("canvas");
+                              let width = img.width;
+                              let height = img.height;
+                              const maxWidth = 1600;
+                              const maxHeight = 1200;
+                              if (width > height) {
+                                if (width > maxWidth) {
+                                  height = Math.round((height * maxWidth) / width);
+                                  width = maxWidth;
+                                }
+                              } else {
+                                if (height > maxHeight) {
+                                  width = Math.round((width * maxHeight) / height);
+                                  height = maxHeight;
+                                }
+                              }
+                              canvas.width = width;
+                              canvas.height = height;
+                              const ctx = canvas.getContext("2d");
+                              ctx.drawImage(img, 0, 0, width, height);
+                              canvas.toBlob(
+                                (blob) => {
+                                  const compFile = new File([blob], imgFile.name, {
+                                    type: "image/jpeg",
+                                    lastModified: Date.now(),
+                                  });
+                                  resolve(compFile);
+                                },
+                                "image/jpeg",
+                                0.8
+                              );
+                            };
+                          };
+                        });
+                      };
+
+                      const compressedFile = await compressImageLocal(file);
+
+                      // 2. Subir a Supabase Storage (bajo carpeta blogs/ en el bucket propiedades)
+                      const fileExt = file.name.split(".").pop();
+                      const fileName = `blogs/${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+
+                      const { error: uploadError } = await supabase.storage
+                        .from("propiedades")
+                        .upload(fileName, compressedFile, {
+                          cacheControl: "3600",
+                          upsert: false,
+                        });
+
+                      if (uploadError) throw uploadError;
+
+                      // 3. Obtener URL pública
+                      const { data: { publicUrl } } = supabase.storage
+                        .from("propiedades")
+                        .getPublicUrl(fileName);
+
+                      setFormData(prev => ({ ...prev, image: publicUrl }));
+                      setMessage({ type: "success", text: "Imagen optimizada y subida correctamente a Storage." });
+                    } catch (err) {
+                      console.warn("Storage upload failed, falling back to base64:", err);
+                      // Fallback a base64
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setFormData(prev => ({ ...prev, image: reader.result }));
+                        setMessage({ type: "success", text: "Imagen cargada localmente (Base64)." });
+                      };
+                      reader.readAsDataURL(file);
+                    }
                   }
                 }}
               />
