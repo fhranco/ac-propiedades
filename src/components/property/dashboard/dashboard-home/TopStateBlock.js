@@ -71,8 +71,8 @@ const TopStateBlock = () => {
         <div key={index} className="col-sm-6 col-xxl-4">
           <div className="d-flex justify-content-between statistics_funfact">
             <div className="details">
-              <div className="text fz25">{data.text}</div>
-              <div className="title">{data.title}</div>
+              <p className="text mb-0" style={{ fontSize: "14px", color: "#666" }}>{data.text}</p>
+              <h4 className="title mb-0" style={{ fontSize: "28px", fontWeight: "700", color: "#222" }}>{data.title}</h4>
             </div>
             <div className="icon text-center">
               <i className={data.icon} />

@@ -49,7 +49,7 @@ const DashboardHome = () => {
 
                 <div className="col-lg-12">
                   <div className="dashboard_title_area">
-                    <h2>¡Hola, {userEmail ? userEmail.split('@')[0] : "Agente"}!</h2>
+                    <h2>¡Hola, Agente AC Propiedades!</h2>
                     <p className="text">¡Nos alegra verte de nuevo!</p>
                   </div>
                 </div>

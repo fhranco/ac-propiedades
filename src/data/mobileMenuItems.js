@@ -11,16 +11,23 @@ module.exports = [
     ]
   },
   {
+    label: "Nosotros",
+    path: "/nosotros"
+  },
+  {
+    label: "Servicios",
+    path: "/servicios"
+  },
+  {
     label: "Noticias",
     path: "/noticias"
   },
   {
-    label: "Páginas",
-    subMenu: [
-      { path: "/nosotros", label: "Nosotros" },
-      { path: "/servicios", label: "Servicios" },
-      { path: "/contacto", label: "Contacto" },
-      { path: "/preguntas-frecuentes", label: "Preguntas Frecuentes" }
-    ]
+    label: "Contacto",
+    path: "/contacto"
+  },
+  {
+    label: "Preguntas Frecuentes",
+    path: "/preguntas-frecuentes"
   }
 ];

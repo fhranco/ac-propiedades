@@ -174,8 +174,9 @@ const DashboardHeader = () => {
                           <Image
                             width={44}
                             height={44}
-                            src="/images/resource/user.png"
-                            alt="user.png"
+                            src="/images/Logo.png"
+                            alt="logo"
+                            style={{ objectFit: "contain", borderRadius: "50%", background: "#fff", padding: "2px" }}
                           />
                         </a>
                         <div className="dropdown-menu">
