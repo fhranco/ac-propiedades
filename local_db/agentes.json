@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "username": "patagoniacoach",
+    "password": "Fgs218732$$",
+    "email": "contacto@acpropiedades.cl",
+    "phoneNumber": "+56 9 1234 5678",
+    "firstName": "Super",
+    "lastName": "Administrador",
+    "companyName": "AC Propiedades Magallanes",
+    "rut": "76.123.456-K",
+    "position": "Super Administrador",
+    "language": "Español",
+    "address": "Punta Arenas, Magallanes, Chile",
+    "aboutMe": "Superadministrador de la plataforma AC Propiedades.",
+    "image": "/images/listings/profile-1.jpg",
+    "facebook": "",
+    "pinterest": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": "",
+    "website": "www.acpropiedades.cl",
+    "role": "superadmin"
+  }
+]

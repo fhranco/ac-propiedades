@@ -1,0 +1,42 @@
+body{
+.menuActive{
+    text-decoration: none;
+    color:#e87722 !important;
+}}
+
+.listCustom{
+    &.listing-type{
+        display: flex;
+        .list-content{
+            flex: 1 !important;
+            .topFive{
+                top: 5px;
+            }
+        }
+        .list-thumb{
+            flex: 1 !important;
+        }
+    }
+}
+.cursor{
+    cursor: pointer;
+}
+
+/* Make all property cards have equal height in grids */
+[class^="listing-style"] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+[class^="listing-style"] .list-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+[class^="listing-style"] .list-content hr.mt-2.mb-2 {
+    margin-top: auto !important;
+}
+
+

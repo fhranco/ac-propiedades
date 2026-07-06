@@ -1,0 +1,41 @@
+import React from "react";
+
+const FilterHeader = () => {
+  return (
+    <div className="dashboard_search_meta d-md-flex align-items-center justify-content-xxl-end">
+      <div className="item1 mb15-sm">
+        <div className="search_area">
+          <input
+            type="text"
+            className="form-control bdrs12"
+            placeholder="Buscar"
+            required
+          />
+          <label>
+            <span className="flaticon-search" />
+          </label>
+        </div>
+      </div>
+      {/* End item1 */}
+
+      <div className="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm maxw160">
+        <div className="pcs_dropdown d-flex align-items-center">
+          <span style={{ minWidth: "80px" }} className="title-color">
+            Ordenar por:
+          </span>
+          <select className="form-select show-tick">
+            <option>Relevancia</option>
+            <option>Precio más bajo</option>
+            <option>Precio más alto</option>
+          </select>
+        </div>
+      </div>
+      <a href="/dashboard-add-property" className="ud-btn btn-thm">
+        Agregar propiedad
+        <i className="fal fa-arrow-right-long" />
+      </a>
+    </div>
+  );
+};
+
+export default FilterHeader;

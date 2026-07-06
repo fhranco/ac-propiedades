@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="100" height="120">
+  <defs>
+    <radialGradient id="pinGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </radialGradient>
+  </defs>
+  <!-- Pin body -->
+  <path d="M50 5 C25 5 5 25 5 50 C5 75 50 115 50 115 C50 115 95 75 95 50 C95 25 75 5 50 5 Z" fill="url(#pinGrad)"/>
+  <!-- White circle -->
+  <circle cx="50" cy="45" r="30" fill="white"/>
+  <!-- House roof -->
+  <polygon points="50,18 32,33 68,33" fill="#E65100" opacity="0.15"/>
+  <!-- AC text -->
+  <text x="50" y="55" font-family="Arial Black, Arial" font-weight="900" font-size="22" fill="url(#pinGrad)" text-anchor="middle" dominant-baseline="middle">AC</text>
+  <!-- Small house under text -->
+  <polygon points="50,57 42,63 58,63" fill="#E65100" opacity="0.6"/>
+  <rect x="44" y="63" width="12" height="8" rx="1" fill="#E65100" opacity="0.5"/>
+  <rect x="48" y="64" width="4" height="4" fill="white" opacity="0.7"/>
+</svg>

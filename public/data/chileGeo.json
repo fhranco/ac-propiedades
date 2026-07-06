@@ -1,0 +1,783 @@
+{
+  "regions": [
+    {
+      "name": "Arica y Parinacota",
+      "code": "XV",
+      "provinces": [
+        {
+          "name": "Arica",
+          "code": "XV-A",
+          "communes": [
+            { "name": "Arica", "code": "15101", "barrios": [] },
+            { "name": "Camarones", "code": "15102", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Parinacota",
+          "code": "XV-P",
+          "communes": [
+            { "name": "Putre", "code": "15201", "barrios": [] },
+            { "name": "General Lagos", "code": "15202", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tarapacá",
+      "code": "I",
+      "provinces": [
+        {
+          "name": "Iquique",
+          "code": "I-I",
+          "communes": [
+            { "name": "Iquique", "code": "11101", "barrios": [] },
+            { "name": "Alto Hospicio", "code": "11102", "barrios": [] }
+          ]
+        },
+        {
+          "name": "El Tamarugal",
+          "code": "I-T",
+          "communes": [
+            { "name": "Pozo Almonte", "code": "11401", "barrios": [] },
+            { "name": "Camiña", "code": "11402", "barrios": [] },
+            { "name": "Colchane", "code": "11403", "barrios": [] },
+            { "name": "Huara", "code": "11404", "barrios": [] },
+            { "name": "Pica", "code": "11405", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Antofagasta",
+      "code": "II",
+      "provinces": [
+        {
+          "name": "Antofagasta",
+          "code": "II-A",
+          "communes": [
+            { "name": "Antofagasta", "code": "21101", "barrios": [] },
+            { "name": "Mejillones", "code": "21102", "barrios": [] },
+            { "name": "Sierra Gorda", "code": "21103", "barrios": [] },
+            { "name": "Taltal", "code": "21104", "barrios": [] }
+          ]
+        },
+        {
+          "name": "El Loa",
+          "code": "II-L",
+          "communes": [
+            { "name": "Calama", "code": "21201", "barrios": [] },
+            { "name": "Ollagüe", "code": "21202", "barrios": [] },
+            { "name": "San Pedro de Atacama", "code": "21203", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Tocopilla",
+          "code": "II-T",
+          "communes": [
+            { "name": "Tocopilla", "code": "21301", "barrios": [] },
+            { "name": "María Elena", "code": "21302", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atacama",
+      "code": "III",
+      "provinces": [
+        {
+          "name": "Copiapó",
+          "code": "III-C",
+          "communes": [
+            { "name": "Copiapó", "code": "31101", "barrios": [] },
+            { "name": "Caldera", "code": "31102", "barrios": [] },
+            { "name": "Tierra Amarilla", "code": "31103", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Chañaral",
+          "code": "III-CH",
+          "communes": [
+            { "name": "Chañaral", "code": "31201", "barrios": [] },
+            { "name": "Diego de Almagro", "code": "31202", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Huasco",
+          "code": "III-H",
+          "communes": [
+            { "name": "Vallenar", "code": "31301", "barrios": [] },
+            { "name": "Alto del Carmen", "code": "31302", "barrios": [] },
+            { "name": "Freirina", "code": "31303", "barrios": [] },
+            { "name": "Huasco", "code": "31304", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Coquimbo",
+      "code": "IV",
+      "provinces": [
+        {
+          "name": "Elqui",
+          "code": "IV-E",
+          "communes": [
+            { "name": "La Serena", "code": "41101", "barrios": [] },
+            { "name": "Coquimbo", "code": "41102", "barrios": [] },
+            { "name": "Andacollo", "code": "41103", "barrios": [] },
+            { "name": "La Higuera", "code": "41104", "barrios": [] },
+            { "name": "Paihuano", "code": "41105", "barrios": [] },
+            { "name": "Vicuña", "code": "41106", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Choapa",
+          "code": "IV-CH",
+          "communes": [
+            { "name": "Illapel", "code": "41201", "barrios": [] },
+            { "name": "Canela", "code": "41202", "barrios": [] },
+            { "name": "Los Vilos", "code": "41203", "barrios": [] },
+            { "name": "Salamanca", "code": "41204", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Limarí",
+          "code": "IV-L",
+          "communes": [
+            { "name": "Ovalle", "code": "41301", "barrios": [] },
+            { "name": "Combarbalá", "code": "41302", "barrios": [] },
+            { "name": "Monte Patria", "code": "41303", "barrios": [] },
+            { "name": "Punitaqui", "code": "41304", "barrios": [] },
+            { "name": "Río Hurtado", "code": "41305", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Valparaíso",
+      "code": "V",
+      "provinces": [
+        {
+          "name": "Valparaíso",
+          "code": "V-V",
+          "communes": [
+            { "name": "Valparaíso", "code": "51101", "barrios": [] },
+            { "name": "Casablanca", "code": "51102", "barrios": [] },
+            { "name": "Concón", "code": "51103", "barrios": [] },
+            { "name": "Juan Fernández", "code": "51104", "barrios": [] },
+            { "name": "Puchuncaví", "code": "51105", "barrios": [] },
+            { "name": "Quintero", "code": "51106", "barrios": [] },
+            { "name": "Viña del Mar", "code": "51107", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Isla de Pascua",
+          "code": "V-IP",
+          "communes": [
+            { "name": "Isla de Pascua", "code": "51201", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Los Andes",
+          "code": "V-LA",
+          "communes": [
+            { "name": "Los Andes", "code": "51301", "barrios": [] },
+            { "name": "Calle Larga", "code": "51302", "barrios": [] },
+            { "name": "Rinconada", "code": "51303", "barrios": [] },
+            { "name": "San Esteban", "code": "51304", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Petorca",
+          "code": "V-P",
+          "communes": [
+            { "name": "La Ligua", "code": "51401", "barrios": [] },
+            { "name": "Cabildo", "code": "51402", "barrios": [] },
+            { "name": "Papudo", "code": "51403", "barrios": [] },
+            { "name": "Petorca", "code": "51404", "barrios": [] },
+            { "name": "Zapallar", "code": "51405", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Quillota",
+          "code": "V-Q",
+          "communes": [
+            { "name": "Quillota", "code": "51501", "barrios": [] },
+            { "name": "Calera", "code": "51502", "barrios": [] },
+            { "name": "Hijuelas", "code": "51503", "barrios": [] },
+            { "name": "La Cruz", "code": "51504", "barrios": [] },
+            { "name": "Nogales", "code": "51505", "barrios": [] }
+          ]
+        },
+        {
+          "name": "San Antonio",
+          "code": "V-SA",
+          "communes": [
+            { "name": "San Antonio", "code": "51601", "barrios": [] },
+            { "name": "Algarrobo", "code": "51602", "barrios": [] },
+            { "name": "Cartagena", "code": "51603", "barrios": [] },
+            { "name": "El Quisco", "code": "51604", "barrios": [] },
+            { "name": "El Tabo", "code": "51605", "barrios": [] },
+            { "name": "Santo Domingo", "code": "51606", "barrios": [] }
+          ]
+        },
+        {
+          "name": "San Felipe de Aconcagua",
+          "code": "V-SF",
+          "communes": [
+            { "name": "San Felipe", "code": "51701", "barrios": [] },
+            { "name": "Catemu", "code": "51702", "barrios": [] },
+            { "name": "Llaillay", "code": "51703", "barrios": [] },
+            { "name": "Panquehue", "code": "51704", "barrios": [] },
+            { "name": "Putaendo", "code": "51705", "barrios": [] },
+            { "name": "Santa María", "code": "51706", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Marga Marga",
+          "code": "V-MM",
+          "communes": [
+            { "name": "Quilpué", "code": "51801", "barrios": [] },
+            { "name": "Limache", "code": "51802", "barrios": [] },
+            { "name": "Olmué", "code": "51803", "barrios": [] },
+            { "name": "Villa Alemana", "code": "51804", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Región Metropolitana de Santiago",
+      "code": "RM",
+      "provinces": [
+        {
+          "name": "Santiago",
+          "code": "RM-S",
+          "communes": [
+            { "name": "Santiago", "code": "13101", "barrios": [] },
+            { "name": "Cerrillos", "code": "13102", "barrios": [] },
+            { "name": "Cerro Navia", "code": "13103", "barrios": [] },
+            { "name": "Conchalí", "code": "13104", "barrios": [] },
+            { "name": "El Bosque", "code": "13105", "barrios": [] },
+            { "name": "Estación Central", "code": "13106", "barrios": [] },
+            { "name": "Huechuraba", "code": "13107", "barrios": [] },
+            { "name": "Independencia", "code": "13108", "barrios": [] },
+            { "name": "La Cisterna", "code": "13109", "barrios": [] },
+            { "name": "La Florida", "code": "13110", "barrios": [] },
+            { "name": "La Granja", "code": "13111", "barrios": [] },
+            { "name": "La Pintana", "code": "13112", "barrios": [] },
+            { "name": "La Reina", "code": "13113", "barrios": [] },
+            { "name": "Las Condes", "code": "13114", "barrios": [] },
+            { "name": "Lo Barnechea", "code": "13115", "barrios": [] },
+            { "name": "Lo Espejo", "code": "13116", "barrios": [] },
+            { "name": "Lo Prado", "code": "13117", "barrios": [] },
+            { "name": "Macul", "code": "13118", "barrios": [] },
+            { "name": "Maipú", "code": "13119", "barrios": [] },
+            { "name": "Ñuñoa", "code": "13120", "barrios": [] },
+            { "name": "Pedro Aguirre Cerda", "code": "13121", "barrios": [] },
+            { "name": "Peñalolén", "code": "13122", "barrios": [] },
+            { "name": "Providencia", "code": "13123", "barrios": [] },
+            { "name": "Pudahuel", "code": "13124", "barrios": [] },
+            { "name": "Quilicura", "code": "13125", "barrios": [] },
+            { "name": "Quinta Normal", "code": "13126", "barrios": [] },
+            { "name": "Recoleta", "code": "13127", "barrios": [] },
+            { "name": "Renca", "code": "13128", "barrios": [] },
+            { "name": "San Joaquín", "code": "13129", "barrios": [] },
+            { "name": "San Miguel", "code": "13130", "barrios": [] },
+            { "name": "San Ramón", "code": "13131", "barrios": [] },
+            { "name": "Vitacura", "code": "13132", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Cordillera",
+          "code": "RM-C",
+          "communes": [
+            { "name": "Puente Alto", "code": "13201", "barrios": [] },
+            { "name": "Pirque", "code": "13202", "barrios": [] },
+            { "name": "San José de Maipo", "code": "13203", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Chacabuco",
+          "code": "RM-CH",
+          "communes": [
+            { "name": "Colina", "code": "13301", "barrios": [] },
+            { "name": "Lampa", "code": "13302", "barrios": [] },
+            { "name": "Tiltil", "code": "13303", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Maipo",
+          "code": "RM-M",
+          "communes": [
+            { "name": "San Bernardo", "code": "13401", "barrios": [] },
+            { "name": "Buin", "code": "13402", "barrios": [] },
+            { "name": "Calera de Tango", "code": "13403", "barrios": [] },
+            { "name": "Paine", "code": "13404", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Melipilla",
+          "code": "RM-ME",
+          "communes": [
+            { "name": "Melipilla", "code": "13501", "barrios": [] },
+            { "name": "Alhué", "code": "13502", "barrios": [] },
+            { "name": "Curacaví", "code": "13503", "barrios": [] },
+            { "name": "María Pinto", "code": "13504", "barrios": [] },
+            { "name": "San Pedro", "code": "13505", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Talagante",
+          "code": "RM-T",
+          "communes": [
+            { "name": "Talagante", "code": "13601", "barrios": [] },
+            { "name": "El Monte", "code": "13602", "barrios": [] },
+            { "name": "Isla de Maipo", "code": "13603", "barrios": [] },
+            { "name": "Padre Hurtado", "code": "13604", "barrios": [] },
+            { "name": "Peñaflor", "code": "13605", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Libertador General Bernardo O'Higgins",
+      "code": "VI",
+      "provinces": [
+        {
+          "name": "Cachapoal",
+          "code": "VI-C",
+          "communes": [
+            { "name": "Rancagua", "code": "61101", "barrios": [] },
+            { "name": "Codegua", "code": "61102", "barrios": [] },
+            { "name": "Coinco", "code": "61103", "barrios": [] },
+            { "name": "Coltauco", "code": "61104", "barrios": [] },
+            { "name": "Doñihue", "code": "61105", "barrios": [] },
+            { "name": "Graneros", "code": "61106", "barrios": [] },
+            { "name": "Las Cabras", "code": "61107", "barrios": [] },
+            { "name": "Machalí", "code": "61108", "barrios": [] },
+            { "name": "Malloa", "code": "61109", "barrios": [] },
+            { "name": "Mostazal", "code": "61110", "barrios": [] },
+            { "name": "Olivar", "code": "61111", "barrios": [] },
+            { "name": "Peumo", "code": "61112", "barrios": [] },
+            { "name": "Pichidegua", "code": "61113", "barrios": [] },
+            { "name": "Quinta de Tilcoco", "code": "61114", "barrios": [] },
+            { "name": "Rengo", "code": "61115", "barrios": [] },
+            { "name": "Requínoa", "code": "61116", "barrios": [] },
+            { "name": "San Vicente", "code": "61117", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Cardenal Caro",
+          "code": "VI-CC",
+          "communes": [
+            { "name": "Pichilemu", "code": "61201", "barrios": [] },
+            { "name": "La Estrella", "code": "61202", "barrios": [] },
+            { "name": "Litueche", "code": "61203", "barrios": [] },
+            { "name": "Marchihue", "code": "61204", "barrios": [] },
+            { "name": "Navidad", "code": "61205", "barrios": [] },
+            { "name": "Paredones", "code": "61206", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Colchagua",
+          "code": "VI-CO",
+          "communes": [
+            { "name": "San Fernando", "code": "61301", "barrios": [] },
+            { "name": "Chépica", "code": "61302", "barrios": [] },
+            { "name": "Chimbarongo", "code": "61303", "barrios": [] },
+            { "name": "Lolol", "code": "61304", "barrios": [] },
+            { "name": "Nancagua", "code": "61305", "barrios": [] },
+            { "name": "Palmilla", "code": "61306", "barrios": [] },
+            { "name": "Peralillo", "code": "61307", "barrios": [] },
+            { "name": "Placilla", "code": "61308", "barrios": [] },
+            { "name": "Pumanque", "code": "61309", "barrios": [] },
+            { "name": "Santa Cruz", "code": "61310", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maule",
+      "code": "VII",
+      "provinces": [
+        {
+          "name": "Talca",
+          "code": "VII-T",
+          "communes": [
+            { "name": "Talca", "code": "71101", "barrios": [] },
+            { "name": "Constitución", "code": "71102", "barrios": [] },
+            { "name": "Curepto", "code": "71103", "barrios": [] },
+            { "name": "Empedrado", "code": "71104", "barrios": [] },
+            { "name": "Maule", "code": "71105", "barrios": [] },
+            { "name": "Pelarco", "code": "71106", "barrios": [] },
+            { "name": "Pencahue", "code": "71107", "barrios": [] },
+            { "name": "Río Claro", "code": "71108", "barrios": [] },
+            { "name": "San Clemente", "code": "71109", "barrios": [] },
+            { "name": "San Rafael", "code": "71110", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Cauquenes",
+          "code": "VII-CA",
+          "communes": [
+            { "name": "Cauquenes", "code": "71201", "barrios": [] },
+            { "name": "Chanco", "code": "71202", "barrios": [] },
+            { "name": "Pelluhue", "code": "71203", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Curicó",
+          "code": "VII-C",
+          "communes": [
+            { "name": "Curicó", "code": "71301", "barrios": [] },
+            { "name": "Hualañé", "code": "71302", "barrios": [] },
+            { "name": "Licantén", "code": "71303", "barrios": [] },
+            { "name": "Molina", "code": "71304", "barrios": [] },
+            { "name": "Rauco", "code": "71305", "barrios": [] },
+            { "name": "Romeral", "code": "71306", "barrios": [] },
+            { "name": "Sagrada Familia", "code": "71307", "barrios": [] },
+            { "name": "Teno", "code": "71308", "barrios": [] },
+            { "name": "Vichuquén", "code": "71309", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Linares",
+          "code": "VII-L",
+          "communes": [
+            { "name": "Linares", "code": "71401", "barrios": [] },
+            { "name": "Colbún", "code": "71402", "barrios": [] },
+            { "name": "Longaví", "code": "71403", "barrios": [] },
+            { "name": "Parral", "code": "71404", "barrios": [] },
+            { "name": "Retiro", "code": "71405", "barrios": [] },
+            { "name": "San Javier", "code": "71406", "barrios": [] },
+            { "name": "Villa Alegre", "code": "71407", "barrios": [] },
+            { "name": "Yerbas Buenas", "code": "71408", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ñuble",
+      "code": "XVI",
+      "provinces": [
+        {
+          "name": "Diguillín",
+          "code": "XVI-D",
+          "communes": [
+            { "name": "Chillán", "code": "16101", "barrios": [] },
+            { "name": "Bulnes", "code": "16102", "barrios": [] },
+            { "name": "Chillán Viejo", "code": "16103", "barrios": [] },
+            { "name": "El Carmen", "code": "16104", "barrios": [] },
+            { "name": "Pemuco", "code": "16105", "barrios": [] },
+            { "name": "Pinto", "code": "16106", "barrios": [] },
+            { "name": "Quillón", "code": "16107", "barrios": [] },
+            { "name": "San Ignacio", "code": "16108", "barrios": [] },
+            { "name": "Yungay", "code": "16109", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Itata",
+          "code": "XVI-I",
+          "communes": [
+            { "name": "Quirihue", "code": "16201", "barrios": [] },
+            { "name": "Cobquecura", "code": "16202", "barrios": [] },
+            { "name": "Coelemu", "code": "16203", "barrios": [] },
+            { "name": "Ninhue", "code": "16204", "barrios": [] },
+            { "name": "Portezuelo", "code": "16205", "barrios": [] },
+            { "name": "Ránquil", "code": "16206", "barrios": [] },
+            { "name": "Treguaco", "code": "16207", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Punilla",
+          "code": "XVI-P",
+          "communes": [
+            { "name": "San Carlos", "code": "16301", "barrios": [] },
+            { "name": "Coihueco", "code": "16302", "barrios": [] },
+            { "name": "Ñiquén", "code": "16303", "barrios": [] },
+            { "name": "San Fabián", "code": "16304", "barrios": [] },
+            { "name": "San Nicolás", "code": "16305", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Biobío",
+      "code": "VIII",
+      "provinces": [
+        {
+          "name": "Concepción",
+          "code": "VIII-C",
+          "communes": [
+            { "name": "Concepción", "code": "81101", "barrios": [] },
+            { "name": "Coronel", "code": "81102", "barrios": [] },
+            { "name": "Chiguayante", "code": "81103", "barrios": [] },
+            { "name": "Florida", "code": "81104", "barrios": [] },
+            { "name": "Hualpén", "code": "81105", "barrios": [] },
+            { "name": "Hualqui", "code": "81106", "barrios": [] },
+            { "name": "Lota", "code": "81107", "barrios": [] },
+            { "name": "Penco", "code": "81108", "barrios": [] },
+            { "name": "San Pedro de la Paz", "code": "81109", "barrios": [] },
+            { "name": "Santa Juana", "code": "81110", "barrios": [] },
+            { "name": "Talcahuano", "code": "81111", "barrios": [] },
+            { "name": "Tomé", "code": "81112", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Arauco",
+          "code": "VIII-A",
+          "communes": [
+            { "name": "Lebu", "code": "81201", "barrios": [] },
+            { "name": "Arauco", "code": "81202", "barrios": [] },
+            { "name": "Cañete", "code": "81203", "barrios": [] },
+            { "name": "Contulmo", "code": "81204", "barrios": [] },
+            { "name": "Curanilahue", "code": "81205", "barrios": [] },
+            { "name": "Los Álamos", "code": "81206", "barrios": [] },
+            { "name": "Tirúa", "code": "81207", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Biobío",
+          "code": "VIII-B",
+          "communes": [
+            { "name": "Los Ángeles", "code": "81301", "barrios": [] },
+            { "name": "Antuco", "code": "81302", "barrios": [] },
+            { "name": "Cabrero", "code": "81303", "barrios": [] },
+            { "name": "Laja", "code": "81304", "barrios": [] },
+            { "name": "Mulchén", "code": "81305", "barrios": [] },
+            { "name": "Nacimiento", "code": "81306", "barrios": [] },
+            { "name": "Negrete", "code": "81307", "barrios": [] },
+            { "name": "Quilaco", "code": "81308", "barrios": [] },
+            { "name": "Quilleco", "code": "81309", "barrios": [] },
+            { "name": "San Rosendo", "code": "81310", "barrios": [] },
+            { "name": "Santa Bárbara", "code": "81311", "barrios": [] },
+            { "name": "Tucapel", "code": "81312", "barrios": [] },
+            { "name": "Yumbel", "code": "81313", "barrios": [] },
+            { "name": "Alto Biobío", "code": "81314", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "La Araucanía",
+      "code": "IX",
+      "provinces": [
+        {
+          "name": "Cautín",
+          "code": "IX-C",
+          "communes": [
+            { "name": "Temuco", "code": "91101", "barrios": [] },
+            { "name": "Carahue", "code": "91102", "barrios": [] },
+            { "name": "Cunco", "code": "91103", "barrios": [] },
+            { "name": "Curarrehue", "code": "91104", "barrios": [] },
+            { "name": "Freire", "code": "91105", "barrios": [] },
+            { "name": "Galvarino", "code": "91106", "barrios": [] },
+            { "name": "Gorbea", "code": "91107", "barrios": [] },
+            { "name": "Lautaro", "code": "91108", "barrios": [] },
+            { "name": "Loncoche", "code": "91109", "barrios": [] },
+            { "name": "Melipeuco", "code": "91110", "barrios": [] },
+            { "name": "Nueva Imperial", "code": "91111", "barrios": [] },
+            { "name": "Padre las Casas", "code": "91112", "barrios": [] },
+            { "name": "Perquenco", "code": "91113", "barrios": [] },
+            { "name": "Pitrufquén", "code": "91114", "barrios": [] },
+            { "name": "Pucón", "code": "91115", "barrios": [] },
+            { "name": "Saavedra", "code": "91116", "barrios": [] },
+            { "name": "Teodoro Schmidt", "code": "91117", "barrios": [] },
+            { "name": "Toltén", "code": "91118", "barrios": [] },
+            { "name": "Vilcún", "code": "91119", "barrios": [] },
+            { "name": "Villarrica", "code": "91120", "barrios": [] },
+            { "name": "Cholchol", "code": "91121", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Malleco",
+          "code": "IX-M",
+          "communes": [
+            { "name": "Angol", "code": "91201", "barrios": [] },
+            { "name": "Collipulli", "code": "91202", "barrios": [] },
+            { "name": "Curacautín", "code": "91203", "barrios": [] },
+            { "name": "Ercilla", "code": "91204", "barrios": [] },
+            { "name": "Lonquimay", "code": "91205", "barrios": [] },
+            { "name": "Los Sauces", "code": "91206", "barrios": [] },
+            { "name": "Lumaco", "code": "91207", "barrios": [] },
+            { "name": "Purén", "code": "91208", "barrios": [] },
+            { "name": "Renaico", "code": "91209", "barrios": [] },
+            { "name": "Traiguén", "code": "91210", "barrios": [] },
+            { "name": "Victoria", "code": "91211", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Los Ríos",
+      "code": "XIV",
+      "provinces": [
+        {
+          "name": "Valdivia",
+          "code": "XIV-V",
+          "communes": [
+            { "name": "Valdivia", "code": "14101", "barrios": [] },
+            { "name": "Corral", "code": "14102", "barrios": [] },
+            { "name": "Futrono", "code": "14103", "barrios": [] },
+            { "name": "La Unión", "code": "14104", "barrios": [] },
+            { "name": "Lago Ranco", "code": "14105", "barrios": [] },
+            { "name": "Lanco", "code": "14106", "barrios": [] },
+            { "name": "Los Lagos", "code": "14107", "barrios": [] },
+            { "name": "Máfil", "code": "14108", "barrios": [] },
+            { "name": "Mariquina", "code": "14109", "barrios": [] },
+            { "name": "Paillaco", "code": "14110", "barrios": [] },
+            { "name": "Panguipulli", "code": "14111", "barrios": [] },
+            { "name": "Río Bueno", "code": "14112", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Ranco",
+          "code": "XIV-R",
+          "communes": [
+            { "name": "La Unión", "code": "14201", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Los Lagos",
+      "code": "X",
+      "provinces": [
+        {
+          "name": "Llanquihue",
+          "code": "X-L",
+          "communes": [
+            { "name": "Puerto Montt", "code": "10101", "barrios": [] },
+            { "name": "Calbuco", "code": "10102", "barrios": [] },
+            { "name": "Cochamó", "code": "10103", "barrios": [] },
+            { "name": "Fresia", "code": "10104", "barrios": [] },
+            { "name": "Frutillar", "code": "10105", "barrios": [] },
+            { "name": "Los Muermos", "code": "10106", "barrios": [] },
+            { "name": "Llanquihue", "code": "10107", "barrios": [] },
+            { "name": "Maullín", "code": "10108", "barrios": [] },
+            { "name": "Puerto Varas", "code": "10109", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Chiloé",
+          "code": "X-CH",
+          "communes": [
+            { "name": "Castro", "code": "10201", "barrios": [] },
+            { "name": "Ancud", "code": "10202", "barrios": [] },
+            { "name": "Chonchi", "code": "10203", "barrios": [] },
+            { "name": "Curaco de Vélez", "code": "10204", "barrios": [] },
+            { "name": "Dalcahue", "code": "10205", "barrios": [] },
+            { "name": "Puqueldón", "code": "10206", "barrios": [] },
+            { "name": "Queilén", "code": "10207", "barrios": [] },
+            { "name": "Quellón", "code": "10208", "barrios": [] },
+            { "name": "Quemchi", "code": "10209", "barrios": [] },
+            { "name": "Quinchao", "code": "10210", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Osorno",
+          "code": "X-O",
+          "communes": [
+            { "name": "Osorno", "code": "10301", "barrios": [] },
+            { "name": "Puerto Octay", "code": "10302", "barrios": [] },
+            { "name": "Purranque", "code": "10303", "barrios": [] },
+            { "name": "Puyehue", "code": "10304", "barrios": [] },
+            { "name": "Río Negro", "code": "10305", "barrios": [] },
+            { "name": "San Juan de la Costa", "code": "10306", "barrios": [] },
+            { "name": "San Pablo", "code": "10307", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Palena",
+          "code": "X-P",
+          "communes": [
+            { "name": "Chaitén", "code": "10401", "barrios": [] },
+            { "name": "Futaleufú", "code": "10402", "barrios": [] },
+            { "name": "Hualaihué", "code": "10403", "barrios": [] },
+            { "name": "Palena", "code": "10404", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aysén del General Carlos Ibáñez del Campo",
+      "code": "XI",
+      "provinces": [
+        {
+          "name": "Coyhaique",
+          "code": "XI-C",
+          "communes": [
+            { "name": "Coyhaique", "code": "11101", "barrios": [] },
+            { "name": "Lago Verde", "code": "11102", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Aysén",
+          "code": "XI-A",
+          "communes": [
+            { "name": "Aysén", "code": "11201", "barrios": [] },
+            { "name": "Cisnes", "code": "11202", "barrios": [] },
+            { "name": "Guaitecas", "code": "11203", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Capitán Prat",
+          "code": "XI-CP",
+          "communes": [
+            { "name": "Cochrane", "code": "11301", "barrios": [] },
+            { "name": "O'Higgins", "code": "11302", "barrios": [] },
+            { "name": "Tortel", "code": "11303", "barrios": [] }
+          ]
+        },
+        {
+          "name": "General Carrera",
+          "code": "XI-GC",
+          "communes": [
+            { "name": "Chile Chico", "code": "11401", "barrios": [] },
+            { "name": "Río Ibáñez", "code": "11402", "barrios": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Magallanes y de la Antártica Chilena",
+      "code": "XII",
+      "provinces": [
+        {
+          "name": "Magallanes",
+          "code": "XII-M",
+          "communes": [
+            { "name": "Punta Arenas", "code": "12101", "barrios": [] },
+            { "name": "Laguna Blanca", "code": "12102", "barrios": [] },
+            { "name": "Río Verde", "code": "12103", "barrios": [] },
+            { "name": "San Gregorio", "code": "12104", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Antártica Chilena",
+          "code": "XII-AC",
+          "communes": [
+            { "name": "Cabo de Hornos", "code": "12201", "barrios": [] },
+            { "name": "Antártica", "code": "12202", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Tierra del Fuego",
+          "code": "XII-TF",
+          "communes": [
+            { "name": "Porvenir", "code": "12301", "barrios": [] },
+            { "name": "Primavera", "code": "12302", "barrios": [] },
+            { "name": "Timaukel", "code": "12303", "barrios": [] }
+          ]
+        },
+        {
+          "name": "Última Esperanza",
+          "code": "XII-UE",
+          "communes": [
+            { "name": "Natales", "code": "12401", "barrios": [] },
+            { "name": "Torres del Paine", "code": "12402", "barrios": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}
