@@ -13,12 +13,8 @@ import PropertyGallery from "@/components/property/property-single-style/single-
 import PropertyVideo from "@/components/property/property-single-style/common/PropertyVideo";
 import VirtualTour360 from "@/components/property/property-single-style/common/VirtualTour360";
 import React from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 // Generar metadatos dinámicos basados en la propiedad de Supabase para SEO (Google y LLMs)
 export async function generateMetadata({ params }) {

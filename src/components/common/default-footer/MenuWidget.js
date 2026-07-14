@@ -5,10 +5,10 @@ const MenuWidget = () => {
     {
       title: "Búsquedas Populares",
       links: [
-        { label: "Departamentos en Arriendo", href: "/propiedades?category=Departamento&status=Rent" },
-        { label: "Departamentos Económicos", href: "/propiedades?category=Departamento" },
+        { label: "Departamentos en Venta", href: "/propiedades?category=Departamento&status=Buy" },
+        { label: "Parcelas y Lotes en Venta", href: "/propiedades?category=Lote&status=Buy" },
         { label: "Casas en Venta", href: "/propiedades?category=Casa&status=Buy" },
-        { label: "Oficinas en Arriendo", href: "/propiedades?category=Comercial&status=Rent" },
+        { label: "Oficinas en Venta", href: "/propiedades?category=Comercial&status=Buy" },
       ],
     },
     {
@@ -19,7 +19,6 @@ const MenuWidget = () => {
         { label: "Planes de Precios", href: "#" },
         { label: "Nuestros Servicios", href: "#" },
         { label: "Soporte de Contacto", href: "#" },
-        { label: "Trabaja con Nosotros", href: "#" },
         { label: "Preguntas Frecuentes", href: "#" },
       ],
     },

@@ -18,7 +18,7 @@ const DboardMobileNavigation = () => {
         if (user.role === "superadmin") {
           setIsSuperadmin(true);
           setIsAdmin(true);
-        } else if (user.id === 1 || user.email === "contacto@acpropiedades.cl" || user.username === "patagoniacoach") {
+        } else if (user.id === 1 || user.email === "contacto@acpropiedades.cl" || user.email === "contacto@acpropiedadesmagallanes.cl" || user.username === "patagoniacoach") {
           setIsSuperadmin(true);
           setIsAdmin(true);
         } else if (user.role === "admin") {

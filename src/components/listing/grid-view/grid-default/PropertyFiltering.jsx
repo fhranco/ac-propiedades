@@ -1,16 +1,11 @@
 "use client";
 
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 import React, { useState, useEffect } from "react";
 import ListingSidebar from "../../sidebar";
 import TopFilterBar from "./TopFilterBar";
 import FeaturedListings from "./FeatuerdListings";
 import PaginationTwo from "../../PaginationTwo";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 /** Convierte la categoría de Supabase al valor que usa el filtro de tipo */
 const categoryToPropertyType = (cat) => {
@@ -34,6 +29,16 @@ const mapProperty = (prop) => {
       : `$${rawPrice.toLocaleString("es-CL")}`
     : "Precio a consultar";
 
+  // Priorizar cover_image (campo liviano dedicado a portada),
+  // luego fallback a images[0] si existe, y por último imagen por defecto
+  const image = prop.cover_image
+    ? prop.cover_image
+    : Array.isArray(prop.images) && prop.images.length > 0
+    ? prop.images[0]
+    : typeof prop.images === "string" && prop.images
+    ? prop.images
+    : "/images/listings/listing-single-v3/default.jpg";
+
   return {
     id: prop.id,
     title: prop.title || "Sin título",
@@ -45,9 +50,7 @@ const mapProperty = (prop) => {
     provincia: prop.provincia || "",
     region: prop.region || "",
     category: prop.category || "",
-    image: Array.isArray(prop.images) && prop.images.length > 0
-      ? prop.images[0]
-      : (typeof prop.images === "string" && prop.images ? prop.images : "/images/listings/listing-single-v3/default.jpg"),
+    image,
     price: priceFormatted,
     priceRaw: rawPrice,
     forRent: prop.type === "Arriendo",
@@ -101,18 +104,56 @@ export default function PropertyFiltering() {
       if (locParam) {
         setLocation(locParam);
       }
-      const statusParam = params.get("status");
+      
+      // Mapear status o type (venta/arriendo)
+      const statusParam = params.get("status") || params.get("type");
       if (statusParam) {
-        setListingStatus(statusParam);
+        if (statusParam.toLowerCase() === "venta" || statusParam === "Buy") {
+          setListingStatus("Buy");
+        } else if (statusParam.toLowerCase() === "arriendo" || statusParam === "Rent") {
+          setListingStatus("Rent");
+        } else {
+          setListingStatus(statusParam);
+        }
+      }
+      
+      const searchParam = params.get("search");
+      if (searchParam) {
+        setSearchQuery(searchParam);
+      }
+
+      const bedroomsParam = params.get("bedrooms");
+      if (bedroomsParam) {
+        setBedrooms(Number(bedroomsParam) || 0);
+      }
+
+      const bathroomsParam = params.get("bathrooms");
+      if (bathroomsParam) {
+        setBathroms(Number(bathroomsParam) || 0);
+      }
+
+      const minPriceParam = params.get("minPrice");
+      const maxPriceParam = params.get("maxPrice");
+      if (minPriceParam || maxPriceParam) {
+        setPriceRange([
+          Number(minPriceParam) || 0,
+          Number(maxPriceParam) || 999999999
+        ]);
       }
     }
 
     setLoading(true);
+    const startTime = Date.now();
+
+    // Consulta directa a Supabase: cover_image es TEXT liviano → sin timeout, sin salto de API
     supabase
       .from("properties")
-      .select("*")
+      .select("id, title, category, price, sufijo_precio, city, address, bedrooms, bathrooms, area, type, cover_image, status, created_at, id_ingreso_manual, slug, year_building, sector_barrio, region, provincia, comuna, lat, lng")
       .order("created_at", { ascending: false })
+      .limit(200)
       .then(({ data, error }) => {
+        const elapsed = Date.now() - startTime;
+        console.log(`[PropertyFiltering] Cargadas en ${elapsed}ms. Filas: ${data?.length ?? 0}`);
         if (error) {
           console.error("Error cargando propiedades:", error);
         } else {
@@ -235,15 +276,17 @@ export default function PropertyFiltering() {
       );
     }
 
-    if (yearBuild.length > 0) {
+    if (yearBuild.length > 0 && yearBuild[1]) {
       filteredArrays.push(
         refItems.filter((elm) => elm.yearBuilding >= Number(yearBuild[0]) && elm.yearBuilding <= Number(yearBuild[1]))
       );
     }
 
-    const commonItems = refItems.filter((item) =>
-      filteredArrays.every((array) => array.includes(item))
-    );
+    const commonItems = filteredArrays.length === 0
+      ? refItems
+      : refItems.filter((item) =>
+          filteredArrays.every((array) => array.includes(item))
+        );
     setFilteredData(commonItems);
   }, [
     allListings, listingStatus, propertyTypes, priceRange, currency,
@@ -263,6 +306,14 @@ export default function PropertyFiltering() {
       setSortedFilteredData([...filteredData]);
     }
   }, [filteredData, currentSortingOption]);
+
+  /* ── Paginación ── */
+  useEffect(() => {
+    const pageCapacity = 8;
+    const startIndex = (pageNumber - 1) * pageCapacity;
+    const endIndex = startIndex + pageCapacity;
+    setPageItems(sortedFilteredData.slice(startIndex, endIndex));
+  }, [sortedFilteredData, pageNumber]);
 
   return (
     <section className="pt0 pb90 bgc-f7">

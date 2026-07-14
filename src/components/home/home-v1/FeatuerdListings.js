@@ -10,7 +10,7 @@ const FeaturedListings = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    fetch("/api/propiedades")
+    fetch("/api/propiedades?fields=card&limit=6", { next: { revalidate: 10 } })
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -164,17 +164,8 @@ const FeaturedListings = () => {
 
       <div className="row">
         {properties.slice(0, 6).map((listing) => {
-          let imageSrc = "/images/listings/g1-1.jpg";
-          if (listing.images) {
-            if (Array.isArray(listing.images) && listing.images.length > 0) {
-              imageSrc = listing.images[0];
-            } else if (typeof listing.images === "string") {
-              try {
-                const arr = JSON.parse(listing.images);
-                if (arr.length > 0) imageSrc = arr[0];
-              } catch (e) {}
-            }
-          }
+          // Usar cover_image (portada dedicada, liviana) con fallback a imagen por defecto
+          const imageSrc = listing.cover_image || "/images/listings/g1-1.jpg";
 
           const formattedPrice = listing.price 
             ? (listing.sufijo_precio === "UF"

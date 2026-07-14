@@ -5,12 +5,11 @@ const SellerGuide = () => {
   const [activeTab, setActiveTab] = useState("proceso");
 
   const pasos = [
-    { num: "01", title: "Tasación ACM (Análisis de Mercado)", desc: "Estudiamos transacciones reales inscritas en el Conservador de Bienes Raíces de Magallanes para fijar el precio correcto desde el primer día, evitando especulaciones." },
-    { num: "02", title: "Plan de Marketing en Redes Oficiales", desc: "Diseñamos una campaña estratégica en nuestras redes sociales y canales oficiales utilizando herramientas de alto impacto: fotografía profesional, videos detallados y tours virtuales interactivos." },
-    { num: "03", title: "Publicación en Nuestra Página Web", desc: "Destacamos tu propiedad en nuestra plataforma web oficial con prioridad visual y fichas técnicas interactivas completas para compradores calificados." },
-    { num: "04", title: "Acompañamiento y Asesoría al Comprador", desc: "Acompañamos de cerca a los potenciales interesados, facilitando y asesorándolos en su proceso de financiamiento y compra para asegurar el precio acordado y optimizar los tiempos de la operación." },
-    { num: "05", title: "Gestión y Coordinación de Visitas", desc: "Nos preocupamos de que tu propiedad esté perfectamente preparada para cada visita. Si la propiedad está habitada, coordinamos visitas planificadas sin invadir tu privacidad y tranquilidad." },
-    { num: "06", title: "Cierre Legal y Escrituración Final", desc: "Redacción de la promesa de compraventa, recopilación de certificados y acompañamiento constante en notaría y bancos hasta la inscripción y el cierre final de la operación." }
+    { num: "01", title: "Plan de Marketing en Redes Oficiales", desc: "Diseñamos una campaña estratégica en nuestras redes sociales y canales oficiales utilizando herramientas de alto impacto: fotografía profesional, videos detallados y tours virtuales interactivos." },
+    { num: "02", title: "Publicación en Nuestra Página Web", desc: "Destacamos tu propiedad en nuestra plataforma web oficial con prioridad visual y fichas técnicas interactivas completas para compradores calificados." },
+    { num: "03", title: "Acompañamiento y Asesoría al Comprador", desc: "Acompañamos de cerca a los potenciales interesados, facilitando y asesorándolos en su proceso de financiamiento y compra para asegurar el precio acordado y optimizar los tiempos de la operación." },
+    { num: "04", title: "Gestión y Coordinación de Visitas", desc: "Nos preocupamos de que tu propiedad esté perfectamente preparada para cada visita. Si la propiedad está habitada, coordinamos visitas planificadas sin invadir tu privacidad y tranquilidad." },
+    { num: "05", title: "Cierre Legal y Escrituración Final", desc: "Redacción de la promesa de compraventa, recopilación de certificados y acompañamiento constante en notaría y bancos hasta la inscripción y el cierre final de la operación." }
   ];
 
   const errores = [

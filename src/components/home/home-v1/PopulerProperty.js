@@ -8,7 +8,7 @@ export default function PopulerProperty() {
     const [pageData, setPageData] = useState([])
     
     useEffect(() => {
-        fetch("/api/propiedades")
+        fetch("/api/propiedades?fields=card&limit=6", { next: { revalidate: 10 } })
           .then((r) => r.json())
           .then((data) => {
             if (Array.isArray(data)) {
@@ -34,25 +34,20 @@ export default function PopulerProperty() {
   return (
     <section className="position-relative" style={{ padding: "100px 0 80px 0", overflow: "hidden" }}>
       
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster="/images/listings/g1-4.jpg"
+      {/* Background Image (Optimized instead of heavy video) */}
+      <div
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           width: "100%",
           height: "100%",
-          objectFit: "cover",
+          backgroundImage: "url('/images/entrega de llave en el campo.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           zIndex: 0,
         }}
-      >
-        <source src="/parcelas.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Overlay Gradient */}
       <div 

@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 10; // Revalidar los datos en caché como máximo cada 10 segundos
+export const dynamic = 'auto'; // Permitir caché ISR en lugar de forzar dinamicidad en cada milisegundo
 
 let supabase;
 try {
@@ -27,17 +28,47 @@ const slugify = (text) =>
 
 /**
  * GET /api/propiedades
- * Retorna las propiedades de Supabase.
+ * Retorna las propiedades de Supabase con soporte para paginación y reducción de campos (select).
  */
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    let query = supabase.from('properties').select('*');
+    
+    // Selector de columnas por modo:
+    // - fields=card   → solo columnas mínimas para tarjetas (más rápido, sin timeout)
+    // - fields=full   → incluye images y amenities (para edición en admin)
+    // - default       → columnas base sin JSONB pesados
+    const fields = searchParams.get('fields');
+    let selectString = 'id, title, category, price, sufijo_precio, city, address, bedrooms, bathrooms, area, type, cover_image, status, created_at, id_ingreso_manual, slug, year_building, sector_barrio, region, provincia, comuna, lat, lng';
+    if (fields === 'card') {
+      // Solo lo necesario para tarjetas
+      selectString = 'id, title, category, price, sufijo_precio, city, address, bedrooms, bathrooms, area, type, cover_image, status, created_at, id_ingreso_manual, slug, lat, lng';
+    } else if (fields === 'full') {
+      // Modo edición: incluye galería completa y amenidades
+      selectString = '*';
+    }
+    
+    let query = supabase.from('properties').select(selectString);
 
+    // Filtro por ID específico (modo edición: busca solo una propiedad)
+    if (searchParams.get('id'))        query = query.eq('id', searchParams.get('id'));
     if (searchParams.get('city'))      query = query.ilike('city', `%${searchParams.get('city')}%`);
     if (searchParams.get('category'))  query = query.eq('category', searchParams.get('category'));
     if (searchParams.get('status'))    query = query.eq('status', searchParams.get('status'));
     if (searchParams.get('agent_id'))  query = query.eq('agent_id', searchParams.get('agent_id'));
+
+    // Ordenar por fecha de creación descendente para asegurar que lo más nuevo cargue primero
+    query = query.order('created_at', { ascending: false });
+
+    // Paginación opcional (si no se define limit, aplicamos 30 por defecto para proteger de timeouts)
+    const page = searchParams.get('page');
+    const limit = searchParams.get('limit') || '30';
+    
+    const pageNum = parseInt(page || '1', 10) || 1;
+    const limitNum = parseInt(limit, 10) || 30;
+    const from = (pageNum - 1) * limitNum;
+    const to = from + limitNum - 1;
+    query = query.range(from, to);
 
     const { data, error } = await query;
     if (error) throw error;
@@ -45,7 +76,7 @@ export async function GET(request) {
     return Response.json(data, { status: 200 });
   } catch (error) {
     console.error('GET /api/propiedades:', error);
-    require('fs').appendFileSync('api-error.log', 'GET error: ' + (error.message || JSON.stringify(error)) + '\\n');
+    require('fs').appendFileSync('api-error.log', 'GET error: ' + (error.message || JSON.stringify(error)) + '\n');
     return Response.json({ error: 'Error al leer propiedades' }, { status: 500 });
   }
 }
@@ -160,6 +191,7 @@ export async function PUT(request) {
       bathrooms: updates.bathrooms !== undefined ? updates.bathrooms : updates.bathroom,
       area: updates.area !== undefined ? updates.area : updates.sqft,
       images: updates.images,
+      cover_image: updates.cover_image || updates.coverImage,
       amenities: updates.amenities,
       agent_id: updates.agent_id || updates.agentId,
       address: updates.address,

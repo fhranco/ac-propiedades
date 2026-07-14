@@ -59,7 +59,7 @@ const About = () => {
                 ¿Quiénes Somos?
               </h2>
               <p className="text mb25">
-                <strong>AC Propiedades Magallanes</strong> nació con un propósito claro: transformar y profesionalizar la visión del sector inmobiliario en el fin del mundo. Somos una agencia local, profundamente arraigada en la Región de Magallanes y de la Antártica Chilena, especializada tanto en la venta y arriendo de propiedades como en el desarrollo e inversión de tierras rurales en la Patagonia.
+                <strong>AC Propiedades Magallanes</strong> nació con un propósito claro: transformar y profesionalizar la visión del sector inmobiliario en el fin del mundo. Somos una agencia local, profundamente arraigada en la Región de Magallanes y de la Antártica Chilena, especializada tanto en la venta de propiedades como en el desarrollo e inversión de tierras rurales en la Patagonia.
               </p>
               <p className="text mb55">
                 Nuestra misión es guiarte de manera honesta, ágil y transparente en cada paso de tu camino inmobiliario. Conectamos a las personas con las propiedades correctas, ofreciendo un servicio seguro y enfocado en la satisfacción total.

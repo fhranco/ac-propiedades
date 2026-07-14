@@ -20,7 +20,7 @@ import SellerGuide from "@/components/home/home-v1/SellerGuide";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Home v1 || Homez - Real Estate NextJS Template",
+  title: "Inicio | AC Propiedades Magallanes",
 };
 
 const Home_V1 = () => {
@@ -37,25 +37,20 @@ const Home_V1 = () => {
       {/* Home Banner Style V1 */}
       <section className="home-banner-style1 p0" style={{ position: "relative", overflow: "hidden" }}>
         
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/images/atardecer-en-punta-arenas.webp"
+        {/* Background Image (Optimized instead of heavy video) */}
+        <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            backgroundImage: "url('/images/atardecer-en-punta-arenas.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             zIndex: 0,
           }}
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Overlay para oscurecer el video y que resalte el texto */}
         <div 
@@ -324,33 +319,7 @@ const Home_V1 = () => {
       </section>
       {/* Explore Blog */}
 
-      {/* Our Partners */}
-      <section className="our-partners pt0" style={{ padding: "60px 0 20px 0" }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12" data-aos="fade-up">
-              <div className="main-title text-center mb30">
-                <span className="text-thm fw-semibold uppercase mb10 d-block" style={{ color: "#eb6753", letterSpacing: "2px", fontSize: "13px" }}>
-                  RESPALDO INSTITUCIONAL
-                </span>
-                <h2 className="title" style={{ color: "#1d293f", fontWeight: "850", fontSize: "28px" }}>
-                  Empresas y alianzas que confían en nosotros
-                </h2>
-              </div>
-            </div>
-            <div className="col-lg-12 text-center">
-              <div
-                className="dots_none nav_none"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
-                <Partner />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* End Our Partners */}
+
 
       {/* Our Testimonials (Moved to bottom) */}
       <section className="pb100 pb50-md bgc-thm-light" style={{ background: "#ffffff", color: "#1d293f", padding: "80px 0", overflow: "hidden" }}>

@@ -16,7 +16,7 @@ const Explore = () => {
       id: 2,
       icon: "/images/icon/property-sell.svg",
       title: "Vende tu propiedad",
-      text: "Te ayudamos a tasar, promocionar y encontrar el comprador ideal para tu inmueble de forma rápida y segura.",
+      text: "Te ayudamos a promocionar y encontrar el comprador ideal para tu inmueble de forma rápida y segura.",
       linkText: "Vender mi propiedad",
       href: "https://wa.me/56984152100?text=Hola%20AC%20Propiedades%2C%20me%20gustar%C3%ADa%20vender%20mi%20propiedad%20con%20ustedes.",
       isExternal: true

@@ -2,14 +2,9 @@
 
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from "@/lib/supabase";
 import TopFilterBar from "./TopFilterBar";
 import FeaturedListings from "./FeatuerdListings";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 import PaginationTwo from "../../PaginationTwo";
 import ListingMap1 from "../ListingMap1";
@@ -49,7 +44,7 @@ export default function PropertyFilteringTwo() {
       setLoading(true);
       supabase
         .from('properties')
-        .select('*')
+        .select("id, title, category, price, sufijo_precio, city, address, bedrooms, bathrooms, area, type, images, status, created_at, id_ingreso_manual, slug, year_building, amenities, lat, latitude, lng, longitude, sector_barrio, comuna")
         .order('created_at', { ascending: false })
         .then(({ data, error }) => {
           if (!error && Array.isArray(data)) {

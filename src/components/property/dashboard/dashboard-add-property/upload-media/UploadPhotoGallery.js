@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import { supabase } from "@/lib/supabase";
 
 const compressImage = (file, maxWidth = 1600, maxHeight = 1200, quality = 0.8) => {
@@ -13,241 +11,244 @@ const compressImage = (file, maxWidth = 1600, maxHeight = 1200, quality = 0.8) =
       img.src = event.target.result;
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        let width = img.width;
-        let height = img.height;
-
+        let width = img.width, height = img.height;
         if (width > height) {
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
+          if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
         } else {
-          if (height > maxHeight) {
-            width = Math.round((width * maxHeight) / height);
-            height = maxHeight;
-          }
+          if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
         }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-
+        canvas.width = width; canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
         canvas.toBlob(
           (blob) => {
-            // Reemplazar la extensión original por .webp
-            const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-            const compressedFile = new File([blob], `${baseName}.webp`, {
-              type: "image/webp",
-              lastModified: Date.now(),
-            });
-            resolve(compressedFile);
-          },
-          "image/webp",
-          quality
+            const base = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+            resolve(new File([blob], `${base}.webp`, { type: "image/webp", lastModified: Date.now() }));
+          }, "image/webp", quality
         );
       };
     };
   });
 };
 
-const UploadPhotoGallery = ({ initialImages = [] }) => {
-  const [uploadedImages, setUploadedImages] = useState([]);
-  const [coverIndex, setCoverIndex] = useState(0);
-  const [uploadingStatus, setUploadingStatus] = useState("");
-  const fileInputRef = useRef(null);
+const uploadToStorage = async (file) => {
+  const compressed = await compressImage(file);
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 10)}.webp`;
+  try {
+    const { error } = await supabase.storage.from("propiedades").upload(fileName, compressed, { cacheControl: "3600", upsert: false });
+    if (error) throw error;
+    const { data: { publicUrl } } = supabase.storage.from("propiedades").getPublicUrl(fileName);
+    return publicUrl;
+  } catch {
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(compressed);
+    });
+  }
+};
 
-  // Sincronizar imágenes existentes de la propiedad en modo edición
-  useEffect(() => {
-    if (initialImages && initialImages.length > 0) {
-      setUploadedImages(initialImages);
-    }
-  }, [initialImages]);
+// ────────────────────────────────────────────────────────────
+// Sub-componente: zona de upload de la PORTADA (una sola foto)
+// ────────────────────────────────────────────────────────────
+const CoverUpload = ({ value, onChange }) => {
+  const [uploading, setUploading] = useState(false);
+  const inputRef = useRef(null);
 
-  const handleUpload = async (files) => {
-    const newImages = [...uploadedImages];
-    let count = 0;
-
-    for (const file of files) {
-      count++;
-      setUploadingStatus(`Optimizando y subiendo foto ${count} de ${files.length}...`);
-      try {
-        // 1. Comprimir imagen en el navegador
-        const compressedFile = await compressImage(file);
-
-        // 2. Intentar subir a Supabase Storage
-        const fileExt = compressedFile.name.split(".").pop();
-        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
-        const filePath = `${fileName}`;
-
-        const { error: uploadError } = await supabase.storage
-          .from("propiedades")
-          .upload(filePath, compressedFile, {
-            cacheControl: "3600",
-            upsert: false,
-          });
-
-        if (uploadError) throw uploadError;
-
-        // Obtener URL pública
-        const { data: { publicUrl } } = supabase.storage
-          .from("propiedades")
-          .getPublicUrl(filePath);
-
-        newImages.push(publicUrl);
-        setUploadedImages([...newImages]);
-      } catch (err) {
-        console.warn("Storage upload failed, falling back to compressed base64:", err);
-        // Si falla la subida a Storage (ej. políticas RLS), caemos en Base64 pero comprimido
-        const compressedFile = await compressImage(file);
-        const base64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = (e) => resolve(e.target.result);
-          reader.readAsDataURL(compressedFile);
-        });
-        newImages.push(base64);
-        setUploadedImages([...newImages]);
-      }
-    }
-    setUploadingStatus("");
+  const handle = async (file) => {
+    if (!file) return;
+    setUploading(true);
+    const url = await uploadToStorage(file);
+    onChange(url);
+    setUploading(false);
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-    handleUpload(files);
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) handle(file);
   };
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
-  const handleDelete = (index) => {
-    const newImages = [...uploadedImages];
-    newImages.splice(index, 1);
-    setUploadedImages(newImages);
-    
-    if (coverIndex === index) {
-      setCoverIndex(0);
-    } else if (coverIndex > index) {
-      setCoverIndex(coverIndex - 1);
-    }
-  };
-
-  const handleSetCover = (index) => {
-    setCoverIndex(index);
+  const handleDragOver = (e) => {
+    e.preventDefault();
   };
 
   return (
-    <>
+    <div>
+      {/* Hidden input para el formulario */}
+      <input type="hidden" name="coverImageUrl" value={value || ""} />
+
+      {/* Preview o zona de upload */}
       <div
-        className="upload-img position-relative overflow-hidden bdrs12 text-center mb30 px-2"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
+        style={{
+          borderRadius: "14px", overflow: "hidden", border: "2px dashed #eb6753",
+          minHeight: "180px", background: value ? "transparent" : "#fff9f8",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          cursor: "pointer", position: "relative",
+        }}
+        onClick={() => !uploading && inputRef.current?.click()}
       >
-        <div className="icon mb30">
-          <span className="flaticon-upload" />
-        </div>
-        <h4 className="title fz17 mb10">Subir/Arrastrar fotos de la propiedad</h4>
-        <p className="text mb25">
-          Las fotos deben ser formato JPEG o PNG
-        </p>
-        <label className="ud-btn btn-white cursor-pointer">
-          Buscar archivos
-          <input
-            ref={fileInputRef}
-            id="fileInput"
-            type="file"
-            multiple
-            className="d-none"
-            onChange={(e) => handleUpload(e.target.files)}
-          />
-        </label>
+        {value ? (
+          <>
+            <img src={value} alt="Portada" style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(transparent, rgba(0,0,0,0.55))", padding: "10px 14px" }}>
+              <span style={{ color: "#fff", fontSize: "12px", fontWeight: 600 }}>
+                <i className="fas fa-check-circle me-1" style={{ color: "#5bbb7b" }} />
+                Portada cargada — haz clic para cambiar
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-4 px-3">
+            {uploading ? (
+              <>
+                <div className="spinner-border spinner-border-sm text-danger mb10" role="status" />
+                <p className="fz13 text-muted mb0">Subiendo portada...</p>
+              </>
+            ) : (
+              <>
+                <i className="flaticon-upload d-block mb10" style={{ fontSize: "28px", color: "#eb6753" }} />
+                <p className="fz14 fw600 mb5" style={{ color: "#eb6753" }}>Subir imagen de portada</p>
+                <p className="fz12 text-muted mb0">Una sola foto · JPEG, PNG o WebP</p>
+              </>
+            )}
+          </div>
+        )}
       </div>
 
-      {uploadingStatus && (
-        <div className="alert alert-info text-center mb20" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", borderRadius: "12px", border: "1px solid #bbeeeb", color: "#1d293f" }}>
-          <div className="spinner-border spinner-border-sm text-info" role="status" style={{ width: "1rem", height: "1rem" }} />
-          <span className="fw-semibold fz14">{uploadingStatus}</span>
+      {/* Botón eliminar */}
+      {value && (
+        <button type="button" className="ud-btn btn-white bdrs8 mt10 fz13"
+          style={{ border: "1px solid #e9e9e9", padding: "6px 16px" }}
+          onClick={(e) => { e.stopPropagation(); onChange(""); }}>
+          <i className="fas fa-trash-alt me-1" style={{ color: "#dc3545" }} /> Quitar portada
+        </button>
+      )}
+
+      <input ref={inputRef} type="file" accept="image/*" className="d-none"
+        onChange={(e) => handle(e.target.files?.[0])} />
+    </div>
+  );
+};
+
+// ────────────────────────────────────────────────────────────
+// Sub-componente: zona de upload de la GALERÍA (múltiples)
+// ────────────────────────────────────────────────────────────
+const GalleryUpload = ({ images, onChange }) => {
+  const [uploading, setUploading] = useState("");
+  const inputRef = useRef(null);
+
+  const handleFiles = async (files) => {
+    const newImages = [...images];
+    let i = 0;
+    for (const file of files) {
+      i++;
+      setUploading(`Subiendo foto ${i} de ${files.length}...`);
+      const url = await uploadToStorage(file);
+      newImages.push(url);
+      onChange([...newImages]);
+    }
+    setUploading("");
+  };
+
+  const handleDelete = (index) => {
+    const updated = [...images];
+    updated.splice(index, 1);
+    onChange(updated);
+  };
+
+  return (
+    <div>
+      {/* Hidden input para el formulario */}
+      <input type="hidden" name="imagesJson" value={JSON.stringify(images)} />
+
+      {/* Zona drag & drop */}
+      <div
+        style={{ borderRadius: "12px", border: "2px dashed #d0d5dd", minHeight: "100px", background: "#fafafa", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: "20px" }}
+        onClick={() => inputRef.current?.click()}
+        onDrop={(e) => { e.preventDefault(); handleFiles(e.dataTransfer.files); }}
+        onDragOver={(e) => e.preventDefault()}
+      >
+        {uploading ? (
+          <div className="d-flex align-items-center gap-2">
+            <div className="spinner-border spinner-border-sm text-success" role="status" />
+            <span className="fz13 fw600">{uploading}</span>
+          </div>
+        ) : (
+          <div className="text-center">
+            <i className="flaticon-upload d-block mb5" style={{ fontSize: "24px", color: "#5bbb7b" }} />
+            <span className="fz13 text-muted">Haz clic o arrastra las fotos de la galería</span>
+          </div>
+        )}
+      </div>
+
+      {/* Grid de fotos */}
+      {images.length > 0 && (
+        <div className="row mt20">
+          {images.map((src, index) => (
+            <div className="col-6 col-sm-4 col-md-3 col-xl-2 mb15" key={index}>
+              <div className="position-relative border bdrs12 p-1" style={{ border: "1px solid #e9e9e9" }}>
+                <div className="position-relative overflow-hidden bdrs8" style={{ height: "100px" }}>
+                  <img src={src} alt={`Galería ${index + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <button type="button" className="position-absolute"
+                    style={{ top: "5px", right: "5px", background: "rgba(255,255,255,0.9)", border: "none", borderRadius: "50%", width: "24px", height: "24px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                    onClick={() => handleDelete(index)} title="Eliminar">
+                    <span className="flaticon-bin" style={{ fontSize: "10px", color: "#dc3545" }} />
+                  </button>
+                </div>
+                <span className="d-block text-center text-muted fz11 mt5">#{index + 1}</span>
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
-      {/* Input oculto con string JSON de imágenes para el submit del formulario */}
-      <input type="hidden" name="imagesJson" value={JSON.stringify(uploadedImages)} />
-      <input type="hidden" name="coverImageIndex" value={coverIndex} />
+      <input ref={inputRef} type="file" multiple accept="image/*" className="d-none"
+        onChange={(e) => handleFiles(e.target.files)} />
+    </div>
+  );
+};
 
-      {uploadedImages.length > 0 && (
-        <>
-          <h5 className="title fz15 mb20">Galería cargada (Haz clic en la estrella para definir la portada principal)</h5>
-          <div className="row profile-box position-relative d-md-flex align-items-stretch mb50">
-            {uploadedImages.map((imageData, index) => {
-              const isCover = coverIndex === index;
-              return (
-                <div className="col-6 col-sm-4 col-md-3 col-xl-2 mb20" key={index}>
-                  <div 
-                    className="profile-img position-relative h-100 border bdrs12 p-1 d-flex flex-column justify-content-between"
-                    style={{ 
-                      borderColor: isCover ? "#eb6753" : "#e9e9e9", 
-                      backgroundColor: isCover ? "#eb675305" : "#fff",
-                      boxShadow: isCover ? "0 4px 12px rgba(235, 103, 83, 0.15)" : "none"
-                    }}
-                  >
-                    <div className="position-relative overflow-hidden bdrs8" style={{ height: "120px" }}>
-                      <img
-                        src={imageData}
-                        className="w-100 h-100 cover"
-                        alt={`Galería ${index + 1}`}
-                        style={{ objectFit: "cover" }}
-                      />
-                      <button
-                        type="button"
-                        className="tag position-absolute"
-                        style={{
-                          top: "8px",
-                          right: "8px",
-                          background: "rgba(255, 255, 255, 0.9)",
-                          border: "none",
-                          borderRadius: "50%",
-                          width: "28px",
-                          height: "28px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer"
-                        }}
-                        onClick={() => handleDelete(index)}
-                        title="Eliminar foto"
-                      >
-                        <span className="flaticon-bin" style={{ fontSize: "12px", color: "#dc3545" }} />
-                      </button>
-                    </div>
+// ────────────────────────────────────────────────────────────
+// Componente principal
+// ────────────────────────────────────────────────────────────
+const UploadPhotoGallery = ({ initialImages = [], initialCoverImage = null }) => {
+  const [coverImage, setCoverImage] = useState("");
+  const [galleryImages, setGalleryImages] = useState([]);
 
-                    <div className="d-flex justify-content-between align-items-center mt10 px-1">
-                      <button
-                        type="button"
-                        style={{
-                          border: "none",
-                          background: "none",
-                          cursor: "pointer"
-                        }}
-                        onClick={() => handleSetCover(index)}
-                        title="Fijar como portada principal"
-                      >
-                        <i 
-                          className={isCover ? "fas fa-star" : "far fa-star"} 
-                          style={{ color: isCover ? "#eb6753" : "#a1a1a1", fontSize: "16px" }}
-                        />
-                      </button>
-                      <span className="text-muted fz11">#{index + 1}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </>
+  useEffect(() => {
+    if (initialCoverImage) setCoverImage(initialCoverImage);
+    if (initialImages && initialImages.length > 0) setGalleryImages(initialImages);
+  }, [initialCoverImage, initialImages]);
+
+  return (
+    <div>
+      {/* ── PORTADA ── */}
+      <div className="mb35">
+        <div className="d-flex align-items-center gap-2 mb15">
+          <span style={{ background: "#eb6753", color: "#fff", borderRadius: "6px", padding: "3px 12px", fontSize: "11px", fontWeight: 700, letterSpacing: "1px" }}>
+            PORTADA
+          </span>
+          <span className="fz13 text-muted">Imagen principal del listado y la home (no forma parte de la galería)</span>
+        </div>
+        <CoverUpload value={coverImage} onChange={setCoverImage} />
+      </div>
+
+      {/* Divisor */}
+      <hr style={{ borderColor: "#f0f0f0", margin: "0 0 25px 0" }} />
+
+      {/* ── GALERÍA ── */}
+      <div>
+        <div className="d-flex align-items-center gap-2 mb15">
+          <span style={{ background: "#1d293f", color: "#fff", borderRadius: "6px", padding: "3px 12px", fontSize: "11px", fontWeight: 700, letterSpacing: "1px" }}>
+            GALERÍA
+          </span>
+          <span className="fz13 text-muted">Todas las fotos de la propiedad · {galleryImages.length} foto{galleryImages.length !== 1 ? "s" : ""}</span>
+        </div>
+        <GalleryUpload images={galleryImages} onChange={setGalleryImages} />
+      </div>
+    </div>
   );
 };
 

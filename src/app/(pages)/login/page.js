@@ -11,24 +11,20 @@ const Login = () => {
   return (
     <>
       <section className="our-compare p-0 position-relative overflow-hidden d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        {/* Background Image (Optimized instead of heavy video) */}
+        <div
           style={{
             position: "absolute",
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            backgroundImage: "url('/images/listings/g1-4.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
             top: 0,
             left: 0,
             zIndex: 1
           }}
-        >
-          <source src="/parcelas.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Dark overlay to give contrast */}
         <div

@@ -25,6 +25,7 @@ const DashboardHeader = () => {
         } else if (
           user.id === 1 ||
           user.email === "contacto@acpropiedades.cl" ||
+          user.email === "contacto@acpropiedadesmagallanes.cl" ||
           user.username === "patagoniacoach"
         ) {
           setIsSuperadmin(true);

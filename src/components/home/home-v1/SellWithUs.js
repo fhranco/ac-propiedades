@@ -72,7 +72,7 @@ const SellWithUs = () => {
                   }}
                   onClick={() => setSelectedAction("vender")}
                 >
-                  Quiero Vender / Tasar
+                  Quiero Vender
                 </button>
                 <button
                   type="button"

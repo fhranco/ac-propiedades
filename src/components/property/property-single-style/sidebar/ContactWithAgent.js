@@ -35,7 +35,7 @@ const ContactWithAgent = ({ propiedadId, propiedadTitulo, agentId }) => {
     ? `${agent.first_name || ""} ${agent.last_name || ""}` 
     : "Soporte AC Propiedades";
 
-  const agentPosition = agent?.position || "Asesor Inmobiliario";
+  const agentPosition = agent?.position || "Corredor de Propiedades";
   let agentImage = agent?.image || "/images/Logo.png";
   if (
     !agent?.image ||

@@ -53,7 +53,7 @@ const DashboardAgents = () => {
         supabase.auth.getUser().then(({ data: { user } }) => {
           if (user) {
             setCurrentUser(user);
-            if (user.email === "contacto@acpropiedades.cl" || user.email === "acpropiedades@protonmail.com") {
+            if (user.email === "contacto@acpropiedades.cl" || user.email === "contacto@acpropiedadesmagallanes.cl" || user.email === "acpropiedades@protonmail.com") {
               setIsAdmin(true);
             }
           }

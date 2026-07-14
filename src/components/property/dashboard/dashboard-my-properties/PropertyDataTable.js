@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import PaginationTwo from "@/components/listing/PaginationTwo";
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -683,6 +684,7 @@ const PropertyDataTable = () => {
   const [editTarget, setEditTarget]     = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast]               = useState(null);
+  const [pageNumber, setPageNumber]     = useState(1);
 
   const showToast = (type, text) => {
     setToast({ type, text });
@@ -809,95 +811,119 @@ const PropertyDataTable = () => {
         <DeleteModal property={deleteTarget} onClose={() => setDeleteTarget(null)} onDeleted={handleDeleted} />
       )}
 
-      <table className="table-style3 table at-savesearch">
-        <thead className="t-head">
-          <tr>
-            <th scope="col">Titulo</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody className="t-body">
-          {properties.map((property) => {
-            let coverImg = "/images/listings/list-1.jpg";
-            if (property.coverImage) {
-              coverImg = property.coverImage;
-            } else if (Array.isArray(property.images) && property.images.length > 0) {
-              coverImg = property.images[0];
-            } else if (typeof property.images === "string") {
-              try {
-                const arr = JSON.parse(property.images);
-                if (arr.length > 0) coverImg = arr[0];
-              } catch (e) {}
-            }
+      {/* Paginación dinámica cliente */}
+      {(() => {
+        const pageCapacity = 8;
+        const startIndex = (pageNumber - 1) * pageCapacity;
+        const paginatedProperties = properties.slice(startIndex, startIndex + pageCapacity);
 
-            return (
-              <tr key={property.id}>
-                <th scope="row">
-                  <div className="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
-                    <div className="list-thumb">
-                      <Image width={110} height={94} className="w-100"
-                        src={coverImg} alt={property.title || "propiedad"}
-                        style={{ objectFit: "cover", borderRadius: "8px" }} />
-                    </div>
-                    <div className="list-content py-0 p-0 mt-2 mt-xxl-0 ps-xxl-4">
-                        {property.id
-                          ? <Link href={'/propiedades/' + property.id}>{property.title}</Link>
-                          : <span>{property.title}</span>}
-                      <p className="list-text mb-0">{property.address || property.location || "—"}</p>
-                    </div>
-                  </div>
-                </th>
-                <td className="vam"><span className="fz13">{property.category || "—"}</span></td>
-                <td className="vam">
-                  <span className={getStatusStyle(property.status)}>
-                    {translateStatus(property.status || "Pending")}
-                  </span>
-                </td>
-                <td className="vam">
-                  <span className="fz13 fw500">
-                    {property.price
-                      ? Number(property.price).toLocaleString("es-CL") + " " + (property.priceSuffix || "")
-                      : "—"}
-                  </span>
-                </td>
-                <td className="vam">
-                  <div className="d-flex gap-2">
-                    <Link
-                      href={`/dashboard-add-property?edit=${property.id}`}
-                      className="icon d-flex align-items-center justify-content-center"
-                      style={{ border: "none", background: "none", color: "#6b7280" }}
-                      title="Editar"
-                    >
-                      <span className="fas fa-pen fa" />
-                    </Link>
-                    <button
-                      className="icon"
-                      style={{ border: "none", background: "none", color: "#6b7280" }}
-                      title="Duplicar"
-                      onClick={() => handleDuplicate(property)}
-                      aria-label={"Duplicar " + property.title}
-                    >
-                      <span className="far fa-copy fa" />
-                    </button>
-                    <button
-                      className="icon"
-                      style={{ border: "none", background: "none" }}
-                      title="Eliminar"
-                      onClick={() => setDeleteTarget(property)}
-                      aria-label={"Eliminar " + property.title}
-                    >
-                      <span className="flaticon-bin" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+        return (
+          <>
+            <table className="table-style3 table at-savesearch">
+              <thead className="t-head">
+                <tr>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="t-body">
+                {paginatedProperties.map((property) => {
+                  let coverImg = "/images/listings/list-1.jpg";
+                  if (property.cover_image) {
+                    coverImg = property.cover_image;
+                  } else if (property.coverImage) {
+                    coverImg = property.coverImage;
+                  } else if (Array.isArray(property.images) && property.images.length > 0) {
+                    coverImg = property.images[0];
+                  } else if (typeof property.images === "string") {
+                    try {
+                      const arr = JSON.parse(property.images);
+                      if (arr.length > 0) coverImg = arr[0];
+                    } catch (e) {}
+                  }
+
+                  return (
+                    <tr key={property.id}>
+                      <th scope="row">
+                        <div className="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
+                          <div className="list-thumb">
+                            <Image width={110} height={94} className="w-100"
+                              src={coverImg} alt={property.title || "propiedad"}
+                              style={{ objectFit: "cover", borderRadius: "8px" }} />
+                          </div>
+                          <div className="list-content py-0 p-0 mt-2 mt-xxl-0 ps-xxl-4">
+                              {property.id
+                                ? <Link href={'/propiedades/' + property.id}>{property.title}</Link>
+                                : <span>{property.title}</span>}
+                            <p className="list-text mb-0">{property.address || property.location || "—"}</p>
+                          </div>
+                        </div>
+                      </th>
+                      <td className="vam"><span className="fz13">{property.category || "—"}</span></td>
+                      <td className="vam">
+                        <span className={getStatusStyle(property.status)}>
+                          {translateStatus(property.status || "Pending")}
+                        </span>
+                      </td>
+                      <td className="vam">
+                        <span className="fz13 fw500">
+                          {property.price
+                            ? Number(property.price).toLocaleString("es-CL") + " " + (property.priceSuffix || "")
+                            : "—"}
+                        </span>
+                      </td>
+                      <td className="vam">
+                        <div className="d-flex gap-2">
+                          <Link
+                            href={`/dashboard-add-property?edit=${property.id}`}
+                            className="icon d-flex align-items-center justify-content-center"
+                            style={{ border: "none", background: "none", color: "#6b7280" }}
+                            title="Editar"
+                          >
+                            <span className="fas fa-pen fa" />
+                          </Link>
+                          <button
+                            className="icon"
+                            style={{ border: "none", background: "none", color: "#6b7280" }}
+                            title="Duplicar"
+                            onClick={() => handleDuplicate(property)}
+                            aria-label={"Duplicar " + property.title}
+                          >
+                            <span className="far fa-copy fa" />
+                          </button>
+                          <button
+                            className="icon"
+                            style={{ border: "none", background: "none" }}
+                            title="Eliminar"
+                            onClick={() => setDeleteTarget(property)}
+                            aria-label={"Eliminar " + property.title}
+                          >
+                            <span className="flaticon-bin" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+
+            {/* Paginador funcional */}
+            <div className="mt30">
+              <PaginationTwo
+                pageCapacity={pageCapacity}
+                data={properties}
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+                type="propiedades"
+              />
+            </div>
+          </>
+        );
+      })()}
     </>
   );
 };

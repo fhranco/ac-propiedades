@@ -9,8 +9,8 @@ const ContactMeta = () => {
     },
     {
       title: "Soporte por Correo",
-      mail: "contacto@acpropiedades.cl",
-      mailLink: "mailto:contacto@acpropiedades.cl",
+      mail: "contacto@acpropiedadesmagallanes.cl",
+      mailLink: "mailto:contacto@acpropiedadesmagallanes.cl",
     },
   ];
 

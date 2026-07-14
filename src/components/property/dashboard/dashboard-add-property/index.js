@@ -22,12 +22,13 @@ const AddPropertyTabContent = () => {
     if (editId) {
       const fetchProperty = async () => {
         try {
-          console.log("AddPropertyPage: fetching properties from API for editId:", editId);
-          const res = await fetch(`/api/propiedades`, { cache: "no-store" });
+          console.log("AddPropertyPage: fetching property with editId:", editId);
+          // Buscar solo la propiedad específica con campos completos (images incluido para galería)
+          const res = await fetch(`/api/propiedades?id=${editId}&fields=full&limit=1`, { cache: "no-store" });
           if (res.ok) {
             const list = await res.json();
-            console.log("AddPropertyPage: list returned:", list.length, "items");
-            const found = list.find((item) => String(item.id) === String(editId));
+            console.log("AddPropertyPage: API returned", list.length, "items");
+            const found = Array.isArray(list) ? list.find((item) => String(item.id) === String(editId)) || list[0] : null;
             console.log("AddPropertyPage: found item:", found);
             if (found) {
               setInitialData(found);
@@ -164,13 +165,6 @@ const AddPropertyTabContent = () => {
         const parsed = JSON.parse(data.imagesJson);
         if (parsed.length > 0) {
           imagesPayload = parsed;
-          // Reordenar para que la imagen seleccionada como portada (coverImageIndex) esté siempre en el índice 0
-          const coverIdx = Number(formData.get("coverImageIndex")) || 0;
-          if (coverIdx > 0 && coverIdx < imagesPayload.length) {
-            const coverImg = imagesPayload[coverIdx];
-            imagesPayload.splice(coverIdx, 1);
-            imagesPayload.unshift(coverImg);
-          }
         }
       } catch (e) {}
     }
@@ -237,6 +231,8 @@ const AddPropertyTabContent = () => {
       video_url: data.videoUrl,
       tour_360_url: data.tour360Url,
       images: imagesPayload,
+      // cover_image: portada dedicada (TEXT liviano) desde el campo de portada, o fallback al primero de la galería
+      cover_image: data.coverImageUrl || (imagesPayload.length > 0 ? imagesPayload[0] : null),
       amenities: amenities
     };
 
@@ -377,7 +373,7 @@ const AddPropertyTabContent = () => {
             role="tabpanel"
             aria-labelledby="nav-item2-tab"
           >
-            <UploadMedia initialImages={existingImages} initialData={initialData} />
+            <UploadMedia initialImages={existingImages} initialCoverImage={initialData?.cover_image || null} initialData={initialData} />
           </div>
 
           <div

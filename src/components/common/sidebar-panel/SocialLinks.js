@@ -3,22 +3,12 @@ const SocialLinks = () => {
     {
       id: 1,
       iconClass: "fab fa-facebook-f",
-      href: "#",
-    },
-    {
-      id: 2,
-      iconClass: "fab fa-twitter",
-      href: "#",
+      href: "https://www.facebook.com/Propiedadespuq",
     },
     {
       id: 3,
       iconClass: "fab fa-instagram",
-      href: "#",
-    },
-    {
-      id: 4,
-      iconClass: "fab fa-linkedin-in",
-      href: "#",
+      href: "https://www.instagram.com/acpropiedadesmagallanes/",
     },
   ];
 

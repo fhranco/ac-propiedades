@@ -28,7 +28,7 @@ const Contact = () => {
         <div className="container">
           <h2 className="title" style={{ color: "#ffffff", fontWeight: "850", fontSize: "42px", marginBottom: "15px" }}>Contáctanos</h2>
           <p className="text" style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "18px", maxWidth: "600px", margin: "0 auto" }}>
-            Estamos aquí para ayudarte. Déjanos tus datos o escríbenos por WhatsApp y un asesor experto se comunicará contigo a la brevedad.
+            Estamos aquí para ayudarte. Déjanos tus datos o escríbenos por WhatsApp y un corredor de propiedades experto se comunicará contigo a la brevedad.
           </p>
         </div>
       </section>
@@ -54,7 +54,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h6 className="mb-0" style={{ color: "#1d293f", fontWeight: "700" }}>Correo Electrónico</h6>
-                  <p className="mb-0" style={{ color: "#5f718a" }}>contacto@acpropiedades.cl</p>
+                  <p className="mb-0" style={{ color: "#5f718a" }}>contacto@acpropiedadesmagallanes.cl</p>
                 </div>
               </div>
               

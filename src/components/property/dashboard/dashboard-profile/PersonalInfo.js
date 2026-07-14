@@ -73,7 +73,7 @@ const PersonalInfo = ({ data, onSave, saving }) => {
               value={form.email}
               onChange={handleChange}
               className="form-control"
-              placeholder="Ej: contacto@acpropiedades.cl"
+              placeholder="Ej: contacto@acpropiedadesmagallanes.cl"
               required
             />
           </div>

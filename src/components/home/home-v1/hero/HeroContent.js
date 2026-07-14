@@ -51,7 +51,7 @@ const HeroContent = () => {
       params.set("amenities", selectedAmenities.join(","));
     }
 
-    router.push(`/map-v1?${params.toString()}`);
+    router.push(`/propiedades?${params.toString()}`);
   };
 
   return (

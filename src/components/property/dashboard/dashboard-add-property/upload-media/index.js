@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import UploadPhotoGallery from "./UploadPhotoGallery";
 import VideoOptionFiled from "./VideoOptionFiled";
 
-const UploadMedia = ({ initialImages = [], initialData }) => {
+const UploadMedia = ({ initialImages = [], initialCoverImage = null, initialData }) => {
   const [tourUrl, setTourUrl] = useState("");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const UploadMedia = ({ initialImages = [], initialData }) => {
       <div className="form-style1">
         <div className="row">
           <div className="col-lg-12">
-            <UploadPhotoGallery initialImages={initialImages} />
+            <UploadPhotoGallery initialImages={initialImages} initialCoverImage={initialCoverImage} />
           </div>
         </div>
         {/* End col-12 */}

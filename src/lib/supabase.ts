@@ -1,10 +1,19 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Supabase client singleton
-export const supabase: SupabaseClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+let supabaseInstance: SupabaseClient | undefined;
+
+export const supabase: SupabaseClient = (() => {
+  if (!supabaseInstance) {
+    supabaseInstance = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+  }
+  return supabaseInstance;
+})();
+
+
 
 /**
  * Upload an image (or any file) to Supabase Storage.

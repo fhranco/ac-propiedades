@@ -58,12 +58,11 @@ const Services = () => {
                   <p className="text mb-0">Analizamos tus necesidades y te presentamos las opciones que realmente se ajustan a lo que buscas, sin hacerte perder el tiempo.</p>
                 </div>
               </div>
-              
-              <div className="list-one mb30 d-flex align-items-start">
+                        <div className="list-one mb30 d-flex align-items-start">
                 <span className="list-icon flex-shrink-0 flaticon-secure-payment mb20 me-4" style={{ fontSize: "40px", color: "#eb6753" }} />
                 <div className="list-content flex-grow-1">
-                  <h5 className="mb-1">2. Asesoría Legal y Financiera</h5>
-                  <p className="text mb-0">Revisamos los títulos, coordinamos tasaciones y nos aseguramos de que toda la documentación esté impecable antes de cualquier compromiso.</p>
+                  <h5 className="mb-1">2. Recopilación de Antecedentes y Documentación</h5>
+                  <p className="text mb-0">Coordinamos visitas y nos aseguramos de que toda la documentación esté impecable antes de cualquier compromiso.</p>
                 </div>
               </div>
 
@@ -103,17 +102,9 @@ const Services = () => {
               </p>
               
               <div className="list-one mb30 d-flex align-items-start">
-                <span className="list-icon flex-shrink-0 flaticon-house-price mb20 me-4" style={{ fontSize: "40px", color: "#eb6753" }} />
-                <div className="list-content flex-grow-1">
-                  <h5 className="mb-1">1. Tasación Comercial Realista</h5>
-                  <p className="text mb-0">Evaluamos tu propiedad basándonos en datos del mercado actual en Magallanes, para salir a competir con el precio correcto.</p>
-                </div>
-              </div>
-              
-              <div className="list-one mb30 d-flex align-items-start">
                 <span className="list-icon flex-shrink-0 flaticon-images mb20 me-4" style={{ fontSize: "40px", color: "#eb6753" }} />
                 <div className="list-content flex-grow-1">
-                  <h5 className="mb-1">2. Marketing y Posicionamiento</h5>
+                  <h5 className="mb-1">1. Marketing y Posicionamiento</h5>
                   <p className="text mb-0">Producimos material visual atractivo y publicamos tu propiedad en todos nuestros canales digitales y portales de alta exposición.</p>
                 </div>
               </div>
@@ -121,7 +112,7 @@ const Services = () => {
               <div className="list-one d-flex align-items-start">
                 <span className="list-icon flex-shrink-0 flaticon-user mb20 me-4" style={{ fontSize: "40px", color: "#eb6753" }} />
                 <div className="list-content flex-grow-1">
-                  <h5 className="mb-1">3. Gestión de Interesados y Cierre</h5>
+                  <h5 className="mb-1">2. Gestión de Interesados y Cierre</h5>
                   <p className="text mb-0">Filtramos a los clientes reales, agendamos visitas guiadas y negociamos las mejores condiciones para ti hasta el cierre notarial.</p>
                 </div>
               </div>
@@ -136,7 +127,7 @@ const Services = () => {
         <div className="container text-center" data-aos="fade-up">
           <h2 className="mb20">Nuestro Compromiso</h2>
           <p className="text mb50 mx-auto" style={{ maxWidth: "800px" }}>
-            No buscamos transacciones de una sola vez. Nuestro objetivo es ser tu asesor inmobiliario de confianza para toda la vida en la Región de Magallanes. Garantizamos total transparencia, ética profesional y un nivel de comunicación donde siempre sabrás en qué etapa está tu proceso.
+            No buscamos transacciones de una sola vez. Nuestro objetivo es ser tu corredor de propiedades de confianza para toda la vida en la Región de Magallanes. Garantizamos total transparencia, ética profesional y un nivel de comunicación donde siempre sabrás en qué etapa está tu proceso.
           </p>
           <Link href="/contacto" className="ud-btn btn-thm">
             Conversemos sobre tu proyecto <i className="fal fa-arrow-right-long" />

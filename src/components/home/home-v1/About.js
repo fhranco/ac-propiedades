@@ -21,7 +21,7 @@ const About = () => {
               Encontremos la mejor opción para ti
             </h2>
             <p className="text mb25 fz15" style={{ color: "#cbd5e1" }}>
-              Te asesoramos en cada paso legal y comercial para que vendas, compres o arriendes de forma segura en la Patagonia.
+              Te asesoramos en cada paso legal y comercial para que vendas o compres de forma segura en la Patagonia.
             </p>
             <div className="list-style1 mb50">
               <ul>

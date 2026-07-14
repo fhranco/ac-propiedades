@@ -1,8 +1,7 @@
 // src/app/api/propiedades/import/route.js
 import { promises as fs } from 'fs';
 import path from 'path';
-import { parse } from 'fast-csv';
-import xlsx from 'xlsx';
+import * as xlsx from 'xlsx';
 
 const dbFilePath = path.join(process.cwd(), 'local_db', 'propiedades.json');
 
