@@ -67,6 +67,28 @@ const FeaturedListings = ({ data, colstyle }) => {
                 </div>
               )}
 
+              {/* Badge Vendido */}
+              {listing.isSold && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    right: 12,
+                    background: "#dc3545",
+                    color: "#fff",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: "4px 12px",
+                    borderRadius: 20,
+                    letterSpacing: 0.5,
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                    zIndex: 2,
+                  }}
+                >
+                  VENDIDO
+                </div>
+              )}
+
               {/* Precio */}
               <div className="list-price" style={{ fontSize: 15, fontWeight: 700 }}>
                 {formatPrice(listing.price)}

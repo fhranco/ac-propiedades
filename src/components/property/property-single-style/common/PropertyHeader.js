@@ -86,6 +86,14 @@ const PropertyHeader = ({ data }) => {
               <i className="fas fa-circle fz10 pe-2" />
               {data?.type || "Venta"}
             </a>
+            {(data?.status === "Vendido" || data?.status === "Sold") && (
+              <span
+                className="badge bg-danger fz13 ml10 mr10 py-1 px-3"
+                style={{ borderRadius: "20px" }}
+              >
+                VENDIDO
+              </span>
+            )}
             {data?.yearBuilding && (
               <a
                 className="ff-heading bdrr1 fz15 pr10 ml10 ml0-sm bdrrn-sm"

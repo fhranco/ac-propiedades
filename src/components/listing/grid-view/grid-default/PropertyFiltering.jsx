@@ -57,6 +57,8 @@ const mapProperty = (prop) => {
     bed: prop.bedrooms || 0,
     bath: prop.bathrooms || 0,
     sqft: prop.area || 0,
+    status: prop.status || "Disponible",
+    isSold: prop.status === "Vendido" || prop.status === "Sold",
     propertyType: categoryToPropertyType(prop.category),
     yearBuilding: prop.year_building || 0,
     features: Array.isArray(prop.amenities) ? prop.amenities : [],
@@ -155,10 +157,16 @@ export default function PropertyFiltering() {
         const elapsed = Date.now() - startTime;
         console.log(`[PropertyFiltering] Cargadas en ${elapsed}ms. Filas: ${data?.length ?? 0}`);
         if (error) {
-          console.error("Error cargando propiedades:", error);
+          console.error("Error cargando propiedades desde Supabase:", error);
         } else {
-          setAllListings((data || []).map(mapProperty));
+          // Excluir propiedades en estado 'Processing' o 'En proceso' (solo visibles en el Dashboard)
+          const validPublic = (data || []).filter(p => p.status !== "Processing" && p.status !== "En proceso");
+          setAllListings(validPublic.map(mapProperty));
         }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error cargando propiedades:", err);
         setLoading(false);
       });
   }, []);

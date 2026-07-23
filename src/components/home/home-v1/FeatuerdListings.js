@@ -14,9 +14,9 @@ const FeaturedListings = () => {
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          // Filtrar solo las propiedades en estado Disponible y ordenarlas por más reciente
-          const available = data.filter(p => p.status === "Disponible");
-          available.sort((a, b) => {
+          // Filtrar propiedades excluyendo las que están 'En proceso' / 'Processing'
+          const publicProps = data.filter(p => p.status !== "Processing" && p.status !== "En proceso");
+          publicProps.sort((a, b) => {
             const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
             const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
             if (dateA !== dateB) {
@@ -24,7 +24,7 @@ const FeaturedListings = () => {
             }
             return Number(b.id || 0) - Number(a.id || 0);
           });
-          setProperties(available);
+          setProperties(publicProps);
         }
       })
       .catch((err) => console.error("Error loading properties", err));
@@ -194,6 +194,11 @@ const FeaturedListings = () => {
                     <div className="premium-type-tag">
                       {listing.category || "Propiedad"}
                     </div>
+                    {(listing.status === "Vendido" || listing.status === "Sold") && (
+                      <div className="premium-type-tag" style={{ background: "#dc3545", right: "15px", left: "auto" }}>
+                        VENDIDO
+                      </div>
+                    )}
                     <div className="premium-price-badge">
                       {formattedPrice}
                     </div>

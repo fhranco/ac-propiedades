@@ -695,7 +695,7 @@ const PropertyDataTable = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/propiedades", { cache: "no-store" });
+      const res = await fetch("/api/propiedades?limit=100", { cache: "no-store" });
       if (!res.ok) throw new Error("No se pudo cargar la lista de propiedades");
       const data = await res.json();
       setProperties(Array.isArray(data) ? data : []);

@@ -42,6 +42,8 @@ const Map = ({ lat, lng }) => {
         mapInstanceRef.current = null;
       }
 
+      if (!mapContainerRef.current) return;
+
       const map = L.map(mapContainerRef.current, {
         center: [initialLat, initialLng],
         zoom: 14,

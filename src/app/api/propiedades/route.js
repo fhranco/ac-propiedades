@@ -60,12 +60,12 @@ export async function GET(request) {
     // Ordenar por fecha de creación descendente para asegurar que lo más nuevo cargue primero
     query = query.order('created_at', { ascending: false });
 
-    // Paginación opcional (si no se define limit, aplicamos 30 por defecto para proteger de timeouts)
+    // Paginación opcional (si no se define limit, aplicamos 100 por defecto)
     const page = searchParams.get('page');
-    const limit = searchParams.get('limit') || '30';
+    const limit = searchParams.get('limit') || '100';
     
     const pageNum = parseInt(page || '1', 10) || 1;
-    const limitNum = parseInt(limit, 10) || 30;
+    const limitNum = parseInt(limit, 10) || 100;
     const from = (pageNum - 1) * limitNum;
     const to = from + limitNum - 1;
     query = query.range(from, to);
@@ -77,7 +77,7 @@ export async function GET(request) {
   } catch (error) {
     console.error('GET /api/propiedades:', error);
     require('fs').appendFileSync('api-error.log', 'GET error: ' + (error.message || JSON.stringify(error)) + '\n');
-    return Response.json({ error: 'Error al leer propiedades' }, { status: 500 });
+    return Response.json({ error: 'Error al conectar con Supabase' }, { status: 500 });
   }
 }
 
